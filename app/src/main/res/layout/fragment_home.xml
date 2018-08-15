@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.SwipeRefreshLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:id="@+id/main_content"
+    tools:context=".UIScreens.Home">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/upcoming_movies_id"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="10dp"
+                android:background="#bbded2"
+                android:elevation="4dp"
+                android:paddingEnd="10dp"
+                android:text="@string/upcoming_movies"
+                android:textColor="#069c45"
+                android:textSize="25sp"
+                android:textStyle="bold"
+                tools:ignore="RtlSymmetry" />
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recyclerview1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layoutManager="android.support.v7.widget.LinearLayoutManager"
+                tools:listitem="@layout/row_card" />
+
+            <TextView
+                android:id="@+id/hindi_movies_id"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="10dp"
+                android:background="#bbded2"
+                android:elevation="4dp"
+                android:paddingEnd="10dp"
+                android:text="@string/hindi_movies"
+                android:textColor="#069c45"
+                android:textSize="25sp"
+                android:textStyle="bold"
+                tools:ignore="RtlSymmetry" />
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recyclerview2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layoutManager="android.support.v7.widget.LinearLayoutManager"
+                tools:listitem="@layout/row_card" />
+
+            <TextView
+                android:id="@+id/telugu_movies_id"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="10dp"
+                android:background="#bbded2"
+                android:elevation="4dp"
+                android:paddingEnd="10dp"
+                android:text="@string/telugu_movies"
+                android:textColor="#069c45"
+                android:textSize="25sp"
+                android:textStyle="bold"
+                tools:ignore="RtlSymmetry" />
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recyclerview3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layoutManager="android.support.v7.widget.LinearLayoutManager"
+                tools:listitem="@layout/row_card" />
+
+            <TextView
+                android:id="@+id/english_movies_id"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="10dp"
+                android:background="#bbded2"
+                android:elevation="4dp"
+                android:paddingEnd="10dp"
+                android:text="@string/english_movies"
+                android:textColor="#069c45"
+                android:textSize="25sp"
+                android:textStyle="bold"
+                tools:ignore="RtlSymmetry" />
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recyclerview4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layoutManager="android.support.v7.widget.LinearLayoutManager"
+                tools:listitem="@layout/row_card" />
+
+            <TextView
+                android:id="@+id/panjabi_movies_id"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="10dp"
+                android:background="#bbded2"
+                android:elevation="4dp"
+                android:paddingEnd="10dp"
+                android:text="@string/panjabi_movies"
+                android:textColor="#069c45"
+                android:textSize="25sp"
+                android:textStyle="bold"
+                tools:ignore="RtlSymmetry" />
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recyclerview5"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layoutManager="android.support.v7.widget.LinearLayoutManager"
+                tools:listitem="@layout/row_card" />
+
+        </LinearLayout>
+
+    </ScrollView>
+</android.support.v4.widget.SwipeRefreshLayout>

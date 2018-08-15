@@ -1,0 +1,43 @@
+<resources>
+    <string name="app_name">MovieStar</string>
+    <string name="movie_star">Movie Star   \t \t \t \t \t \t Movie Star \t \t \t \t </string>
+    <string name="create_a_password">Create a Password</string>
+    <string name="reset">Reset</string>
+    <string name="enter_user_name">Enter User Name</string>
+    <string name="email_id_text">Enter Email Id</string>
+    <string name="alert_yes_btn">Yes</string>
+    <string name="alert_no_btn">No</string>
+    <string name="new_user">New User?</string>
+    <string name="enter_your_password">Enter your Password</string>
+    <string name="enter_your_email_id">Enter Your Email Id</string>
+    <string name="no_btn_alert">No</string>
+    <string name="alert_msg">Do you want to Exit from this App?</string>
+    <string name="alert_title">Exit!</string>
+    <string name="title_activity_main">MainActivity</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Android Studio</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Settings</string>
+
+    <string name="upcoming_movies">UpComing Movies</string>
+    <string name="hindi_movies">Hindi Movies</string>
+    <string name="telugu_movies">Telugu Movies</string>
+    <string name="english_movies">English Movies</string>
+    <string name="panjabi_movies">Panjabi Movies</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="alert_logout_msg">Dou you want to LogOut</string>
+    <string name="logout_success_msg">Logout Successfully</string>
+    <string name="signin">SignIn</string>
+    <string name="singup">SingUp</string>
+    <string name="prasanth">Prasanth</string>
+    <string name="description">Description</string>
+    <string name="appwidget_text">EXAMPLE</string>
+    <string name="add_widget">Add widget</string>
+    <string name="give_your_feedback">Give Your FeedBack</string>
+    <string name="feedback">Feedback</string>
+
+</resources>
