@@ -51,11 +51,6 @@
             android:launchMode="singleTop"
             android:parentActivityName=".UIScreens.DetailsActivity" />
         <activity
-            android:name=".UIScreens.Posters"
-            android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize"
-            android:launchMode="singleTop"
-            android:parentActivityName=".UIScreens.DetailsActivity" />
-        <activity
             android:name=".UIScreens.YoutubePlayerActivity"
             android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize"
             android:screenOrientation="landscape" />
@@ -74,7 +69,8 @@
             android:name=".Data.MovieStarContentProvider"
             android:authorities="com.example.prasanthkumar.moviestar"
             android:enabled="true"
-            android:exported="true"></provider>
+            android:exported="true" />
+
     </application>
 
 </manifest>

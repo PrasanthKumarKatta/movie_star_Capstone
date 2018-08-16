@@ -52,7 +52,6 @@ public class Home extends Fragment {
         // Required empty public constructor
     }
 
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -74,7 +73,9 @@ public class Home extends Fragment {
             mRecyclerView1.setLayoutManager(new LinearLayoutManager(getContext()));
         }
       */
-      //  mRecyclerView1.setItemAnimator(new DefaultItemAnimator());
+
+      //mRecyclerView1.setItemAnimator(new DefaultItemAnimator());
+
         mRecyclerView1.setAdapter(adapter);
         mRecyclerView1.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.HORIZONTAL,false));
         mRecyclerView1.addItemDecoration(new DividerItemDecoration(mRecyclerView1.getContext(),DividerItemDecoration.HORIZONTAL));

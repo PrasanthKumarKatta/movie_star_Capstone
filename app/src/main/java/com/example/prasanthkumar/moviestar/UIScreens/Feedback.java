@@ -54,7 +54,6 @@ public class Feedback extends Fragment {
         });
         return v;
 
-
     }
 
 }

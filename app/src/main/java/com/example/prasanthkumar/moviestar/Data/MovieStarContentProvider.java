@@ -10,8 +10,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.util.Log;
 
-public class MovieStarContentProvider /*extends ContentProvider*/ {
- /*
+public class MovieStarContentProvider extends ContentProvider {
     public static final int TASK =100;
     public static final String AUTHORITY = "com.example.prasanthkumar.moviestar";
     public static final Uri BASE_URI = Uri.parse("content://" + AUTHORITY );
@@ -107,5 +106,5 @@ public class MovieStarContentProvider /*extends ContentProvider*/ {
         // TODO: Implement this to handle requests to update one or more rows.
         //  throw new UnsupportedOperationException("Not yet implemented");
         return 0;
-    }*/
+    }
 }

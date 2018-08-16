@@ -55,7 +55,7 @@ public class DetailsActivity extends AppCompatActivity {
     @BindView(R.id.posters) FloatingActionButton posters_fab;
     @BindView(R.id.trailers) FloatingActionButton trailers_fab;
     @BindView(R.id.favorite_button) MaterialFavoriteButton materialFavoriteButton;
-    //private FavoriteDBHelper favDB = new FavoriteDBHelper(DetailsActivity.this);
+    private FavoriteDBHelper favDB = new FavoriteDBHelper(DetailsActivity.this);
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -110,16 +110,14 @@ public class DetailsActivity extends AppCompatActivity {
             i.putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS, ids);
             sendBroadcast(i);
 
-/*
 
             SharedPreferences sharedPreferences1 = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
 
             int movie_id = getIntent().getExtras().getInt(id_key);
-        */
-/*    if (favDB.searchData(movie_id)){
+    if (favDB.searchData(movie_id)){
                 materialFavoriteButton.setFavorite(true);
             }
-        *//*
+
 
             materialFavoriteButton.setOnFavoriteChangeListener(new MaterialFavoriteButton.OnFavoriteChangeListener() {
                 @Override
@@ -130,7 +128,7 @@ public class DetailsActivity extends AppCompatActivity {
                         editor.putBoolean("FavoriteAdded",true);
                         editor.apply();
 
-                        //saveFav();
+                        saveFav();
 
                         Snackbar.make(buttonView,"Add to Favorite",
                                 Snackbar.LENGTH_SHORT).show();
@@ -154,7 +152,6 @@ public class DetailsActivity extends AppCompatActivity {
             });
 
 
-*/
 
         }
         else {
@@ -173,7 +170,6 @@ public class DetailsActivity extends AppCompatActivity {
         });
     }
 
-  /*
    private void saveFav() {
         Toast.makeText(this, "saveFav Method", Toast.LENGTH_SHORT).show();
         SQLiteDatabase db = favDB.getWritableDatabase();
@@ -190,7 +186,6 @@ public class DetailsActivity extends AppCompatActivity {
         Toast.makeText(this, "Table row inserted", Toast.LENGTH_SHORT).show();
     }
 
-*/
 
     private void initCollapsingToolbar() {
         final CollapsingToolbarLayout collapsingToolbarLayout =

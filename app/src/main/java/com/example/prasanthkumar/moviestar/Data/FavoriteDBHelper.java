@@ -9,8 +9,8 @@ import android.widget.Toast;
 
 import static com.example.prasanthkumar.moviestar.UIScreens.MainActivity.TAG1;
 
-public class FavoriteDBHelper {
-   /*
+public class FavoriteDBHelper  extends SQLiteOpenHelper
+{
     private static final String DATABSE_NAME = "favorites.db";
     private static final int DATABSE_VERSION = 1;
     private static final String LOGTAG = "FAVORITE";
@@ -75,5 +75,5 @@ public class FavoriteDBHelper {
         }else {
             return true;
         }
-    }*/
+    }
 }
