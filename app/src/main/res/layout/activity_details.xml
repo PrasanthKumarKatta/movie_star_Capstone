@@ -49,9 +49,35 @@
                 app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
                 />
 
+
         </android.support.design.widget.CollapsingToolbarLayout>
 
     </android.support.design.widget.AppBarLayout>
+
+    <android.support.design.widget.FloatingActionButton
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        app:layout_anchor="@id/appbar"
+        android:layout_margin="10dp"
+        android:id="@+id/crew_fab"
+        android:src="@drawable/ic_people_black_24dp"
+        app:layout_anchorGravity="bottom"/>
+    <android.support.design.widget.FloatingActionButton
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        app:layout_anchor="@id/appbar"
+        android:layout_margin="10dp"
+        android:id="@+id/posters_fab"
+        android:src="@drawable/ic_image_black_24dp"
+        app:layout_anchorGravity="bottom|center"/>
+    <android.support.design.widget.FloatingActionButton
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        app:layout_anchor="@id/appbar"
+        android:layout_margin="10dp"
+        android:id="@+id/trailer_fab"
+        android:src="@drawable/ic_video_library_black_24dp"
+        app:layout_anchorGravity="bottom|end"/>
 
     <include layout="@layout/content_details" />
 

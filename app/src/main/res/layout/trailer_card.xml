@@ -7,8 +7,7 @@
     android:id="@+id/card_view"
     android:background="#FFF"
     app:cardCornerRadius="5dp"
-    android:layout_marginLeft="10dp"
-    android:layout_marginRight="10dp"
+    android:layout_margin="10dp"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <FrameLayout
@@ -29,7 +28,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:paddingStart="10dp"
-            android:layout_marginBottom="10dp"
+            android:layout_marginBottom="15dp"
             android:text="Trailer"
             android:textColor="@color/white"
             android:textStyle="bold"

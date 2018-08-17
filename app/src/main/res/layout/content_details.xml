@@ -20,7 +20,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            >
 
             <android.support.v7.widget.CardView
                 android:layout_width="match_parent"
@@ -33,81 +34,35 @@
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
 
-                    <android.support.design.widget.FloatingActionButton
-                        android:id="@+id/trailers"
-                        android:layout_width="60dp"
-                        android:layout_height="60dp"
-                        android:layout_margin="15dp"
-                        android:layout_marginEnd="16dp"
-                        android:background="@color/colorPrimary"
-                        android:elevation="6dp"
-                        android:src="@drawable/ic_video_library_black_24dp"
-                        app:layout_anchor="@id/appbar"
-                        app:layout_anchorGravity="bottom|end"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-                    <android.support.design.widget.FloatingActionButton
-                        android:id="@+id/crew"
-                        android:layout_width="60dp"
-                        android:layout_height="60dp"
-                        android:layout_margin="15dp"
-                        android:layout_marginStart="16dp"
-                        android:background="@color/colorPrimary"
-                        android:elevation="6dp"
-                        android:src="@drawable/ic_people_black_24dp"
-                        app:layout_anchor="@id/appbar"
-                        app:layout_anchorGravity="bottom|start"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-                    <android.support.design.widget.FloatingActionButton
-                        android:id="@+id/posters"
-                        android:layout_width="60dp"
-                        android:layout_height="60dp"
-                        android:layout_margin="15dp"
-                        android:layout_marginEnd="80dp"
-                        android:layout_marginStart="8dp"
-                        android:background="@color/colorPrimary"
-                        android:elevation="6dp"
-                        android:src="@drawable/ic_image_black_24dp"
-                        app:layout_anchor="@id/appbar"
-                        app:layout_anchorGravity="bottom|center"
-                        app:layout_constraintEnd_toStartOf="@+id/trailers"
-                        app:layout_constraintStart_toEndOf="@+id/crew"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-
                     <ImageView
                         android:id="@+id/thumbnail_img_header"
                         android:layout_width="140dp"
                         android:layout_height="188dp"
                         android:layout_marginEnd="8dp"
-                        android:layout_marginTop="8dp"
+                        android:layout_marginTop="15dp"
                         android:scaleType="centerCrop"
                         android:src="@mipmap/ic_launcher"
                         app:layout_constraintBottom_toTopOf="@+id/view"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="0.036"
+                        app:layout_constraintHorizontal_bias="0.0"
                         app:layout_constraintLeft_toLeftOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/crew" />
+                        app:layout_constraintTop_toTopOf="parent" />
 
                     <TextView
                         android:id="@+id/title_details"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginEnd="16dp"
-                        android:layout_marginStart="10dp"
-                        android:layout_marginTop="8dp"
+                        android:layout_marginEnd="8dp"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginTop="48dp"
                         android:fontFamily="sans-serif"
                         android:text="title"
                         android:textSize="20sp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0.0"
-                        app:layout_constraintRight_toRightOf="parent"
                         app:layout_constraintStart_toEndOf="@+id/thumbnail_img_header"
-                        app:layout_constraintTop_toBottomOf="@+id/posters"
+                        app:layout_constraintTop_toTopOf="parent"
                         tools:ignore="RtlCompat" />
 
                     <TextView
@@ -115,14 +70,14 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
-                        android:layout_marginTop="16dp"
+                        android:layout_marginTop="20dp"
                         android:fontFamily="serif"
                         android:text="Releasing \nDate    :"
                         android:textSize="15sp"
                         android:textStyle="bold"
                         app:layout_constraintRight_toRightOf="parent"
                         app:layout_constraintStart_toEndOf="@+id/thumbnail_img_header"
-                        app:layout_constraintTop_toBottomOf="@+id/favorite_button" />
+                        app:layout_constraintTop_toBottomOf="@+id/user_Rating" />
 
                     <TextView
                         android:id="@+id/release_dates"
@@ -146,22 +101,25 @@
                         android:id="@+id/favorite_button"
                         android:layout_width="100dp"
                         android:layout_height="100dp"
-                        android:layout_marginEnd="168dp"
-                        android:layout_marginStart="20dp"
+                        android:layout_marginEnd="8dp"
+                        android:layout_marginStart="72dp"
                         android:layout_marginTop="8dp"
                         android:background="@color/colorPrimary"
+                        app:layout_constraintBottom_toBottomOf="@+id/user_Rating"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="0.368"
-                        app:layout_constraintRight_toRightOf="parent"
-                        app:layout_constraintStart_toEndOf="@+id/thumbnail_img_header"
-                        app:layout_constraintTop_toBottomOf="@+id/user_Rating" />
+                        app:layout_constraintHorizontal_bias="0.142"
+                        app:layout_constraintStart_toEndOf="@+id/user_Rating"
+                        app:layout_constraintTop_toTopOf="@+id/user_Rating"
+                        app:layout_constraintVertical_bias="0.421" />
 
 
                     <TextView
                         android:id="@+id/user_Rating"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
+                        android:layout_width="47dp"
+                        android:layout_height="37dp"
+                        android:layout_marginEnd="8dp"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginTop="16dp"
                         android:fontFamily="sans-serif"
                         android:foregroundGravity="center_horizontal"
                         android:gravity="start"
@@ -169,9 +127,8 @@
                         android:text="title"
                         android:textSize="20sp"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="0.071"
+                        app:layout_constraintHorizontal_bias="0.006"
                         app:layout_constraintLeft_toLeftOf="parent"
-                        app:layout_constraintRight_toRightOf="parent"
                         app:layout_constraintStart_toEndOf="@+id/thumbnail_img_header"
                         app:layout_constraintTop_toBottomOf="@+id/title_details"
                         tools:ignore="RtlCompat" />
@@ -228,6 +185,25 @@
                 android:layout_height="1dp"
                 android:background="#000"
                 />
+
+            <TextView
+                android:id="@+id/reviews"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="serif"
+                android:text="@string/reviews"
+                android:textSize="30sp"
+                android:layout_marginLeft="5dp"
+                android:textStyle="bold" />
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recyclerView_reviews"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:clipToPadding="false"
+                android:layout_marginStart="10dp"
+                android:scrollbars="vertical" />
+
         </LinearLayout>
 
     </android.support.v4.widget.NestedScrollView>

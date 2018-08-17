@@ -146,9 +146,12 @@ public class MainActivity extends AppCompatActivity
                 Toast.makeText(this, "Home", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.chat_box:
-                 fragment = new Chat();
+               /*  fragment = new Chat();
                 Toast.makeText(this, "Chat", Toast.LENGTH_SHORT).show();
-
+              */
+               Intent i = new Intent(this,ChatActivity.class);
+               i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_NEW_TASK);
+               startActivity(i);
                 break;
             case R.id.favorites:
                 fragment = new Favorites();

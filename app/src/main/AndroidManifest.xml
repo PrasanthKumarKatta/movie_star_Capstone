@@ -71,6 +71,12 @@
             android:enabled="true"
             android:exported="true" />
 
+        <activity
+            android:name=".UIScreens.ChatActivity"
+            android:parentActivityName=".UIScreens.MainActivity"
+            android:launchMode="singleTop"
+            android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize"
+            ></activity>
     </application>
 
 </manifest>

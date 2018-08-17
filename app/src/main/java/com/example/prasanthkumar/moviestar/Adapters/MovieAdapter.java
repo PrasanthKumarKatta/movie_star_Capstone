@@ -43,7 +43,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieInfo> {
         Picasso.with(context)
                 .load(movieList.get(position).getPosterPath())
                 .placeholder(R.drawable.loading_gif).into(holder.thumbnail_img);
-        Toast.makeText(context, ""+movieList.get(position).getPosterPath()+"\n"+movieList.get(position).getOriginal_title(), Toast.LENGTH_SHORT).show();
+//        Toast.makeText(context, ""+movieList.get(position).getPosterPath()+"\n"+movieList.get(position).getOriginal_title(), Toast.LENGTH_SHORT).show();
         Double rating = Double.parseDouble(String.valueOf(movieList.get(position).getVoteAverage()));
         holder.movie_rating.setText(String.valueOf(rating)+"/10");
     }

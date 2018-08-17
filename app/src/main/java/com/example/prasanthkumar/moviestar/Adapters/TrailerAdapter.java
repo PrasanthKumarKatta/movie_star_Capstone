@@ -10,9 +10,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.example.prasanthkumar.moviestar.BuildConfig;
 import com.example.prasanthkumar.moviestar.Model.Trailer;
 import com.example.prasanthkumar.moviestar.R;
 import com.example.prasanthkumar.moviestar.UIScreens.YoutubePlayerActivity;
+import com.google.android.youtube.player.YouTubeInitializationResult;
+import com.google.android.youtube.player.YouTubeThumbnailLoader;
 import com.google.android.youtube.player.YouTubeThumbnailView;
 
 import java.util.List;
@@ -38,9 +41,22 @@ public class TrailerAdapter extends RecyclerView.Adapter<TrailerAdapter.TrailerI
     }
 
     @Override
-    public void onBindViewHolder(@NonNull TrailerInfo holder, int position)
+    public void onBindViewHolder(@NonNull TrailerInfo holder, final int position)
     {
         holder.trailer_Title.setText(trailerList.get(position).getName());
+
+        holder.imageView.initialize(BuildConfig.TheYoutubeAPIKey, new YouTubeThumbnailView.OnInitializedListener() {
+            @Override
+            public void onInitializationSuccess(YouTubeThumbnailView youTubeThumbnailView, YouTubeThumbnailLoader youTubeThumbnailLoader) {
+               // youTubeThumbnailLoader=youTubeThumbnailLoader;
+                youTubeThumbnailLoader.setOnThumbnailLoadedListener(new ThumbnailLoadedListener());
+                youTubeThumbnailLoader.setVideo(trailerList.get(position).getKey());;
+            }
+            @Override
+            public void onInitializationFailure(YouTubeThumbnailView youTubeThumbnailView, YouTubeInitializationResult youTubeInitializationResult) {
+
+            }
+        });
 
     }
 
@@ -92,5 +108,17 @@ public class TrailerAdapter extends RecyclerView.Adapter<TrailerAdapter.TrailerI
             context.startActivity(i);
         }
 
+    }
+
+    private class ThumbnailLoadedListener implements YouTubeThumbnailLoader.OnThumbnailLoadedListener {
+        @Override
+        public void onThumbnailLoaded(YouTubeThumbnailView youTubeThumbnailView, String s) {
+
+        }
+
+        @Override
+        public void onThumbnailError(YouTubeThumbnailView youTubeThumbnailView, YouTubeThumbnailLoader.ErrorReason errorReason) {
+
+        }
     }
 }
