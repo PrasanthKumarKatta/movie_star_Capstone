@@ -47,18 +47,19 @@
                         app:layout_constraintHorizontal_bias="0.0"
                         app:layout_constraintLeft_toLeftOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
+                        app:layout_constraintTop_toTopOf="parent"
+                        android:contentDescription="@string/image_todo" />
 
                     <TextView
                         android:id="@+id/title_details"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginEnd="8dp"
-                        android:layout_marginStart="8dp"
-                        android:layout_marginTop="48dp"
+                        android:layout_marginEnd="4dp"
+                        android:layout_marginStart="4dp"
+                        android:layout_marginTop="45dp"
                         android:fontFamily="sans-serif"
                         android:text="title"
-                        android:textSize="20sp"
+                        android:textSize="17sp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0.0"
                         app:layout_constraintStart_toEndOf="@+id/thumbnail_img_header"
@@ -153,7 +154,7 @@
                         android:layout_marginLeft="8dp"
                         android:layout_marginTop="8dp"
                         android:fontFamily="serif"
-                        android:text="Description"
+                        android:text="@string/description_details"
                         android:textAlignment="center"
                         android:textSize="25sp"
                         android:textStyle="bold"
@@ -175,7 +176,8 @@
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/plot" />
+                        app:layout_constraintTop_toBottomOf="@+id/plot"
+                        tools:ignore="RtlSymmetry" />
                 </android.support.constraint.ConstraintLayout>
 
             </android.support.v7.widget.CardView>
@@ -186,22 +188,40 @@
                 android:background="#000"
                 />
 
-            <TextView
-                android:id="@+id/reviews"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:fontFamily="serif"
-                android:text="@string/reviews"
-                android:textSize="30sp"
-                android:layout_marginLeft="5dp"
-                android:textStyle="bold" />
+                android:weightSum="2"
+                android:orientation="horizontal"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:layout_weight="1"
+                    android:id="@+id/reviews"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:fontFamily="serif"
+                    android:text="@string/reviews"
+                    android:textSize="30sp"
+                    android:layout_marginLeft="5dp"
+                    android:textStyle="bold" />
+                <TextView
+                    android:id="@+id/reviews_tv"
+                    android:visibility="invisible"
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:fontFamily="serif"
+                    android:text="@string/reviews"
+                    android:textSize="30sp"
+                    android:layout_marginLeft="@dimen/m5dp"
+                    android:textStyle="bold" />
+            </LinearLayout>
 
-            <android.support.v7.widget.RecyclerView
+            <com.example.prasanthkumar.moviestar.UIScreens.StatefulRecyclerView
                 android:id="@+id/recyclerView_reviews"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:clipToPadding="false"
-                android:layout_marginStart="10dp"
+                android:layout_marginStart="@dimen/m10dp"
                 android:scrollbars="vertical" />
 
         </LinearLayout>

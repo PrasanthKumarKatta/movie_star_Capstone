@@ -30,7 +30,11 @@
         <item name="android:layout_marginLeft">@dimen/layout_margin_left</item>
         <item name="android:padding">@dimen/padding_layout</item>
         <item name="android:layout_marginTop">@dimen/layout_margin_top</item>
-        <item name="android:textSize">20dp</item>
+        <item name="android:textSize">20sp</item>
+    </style>
+    <style name="relativeLayout_Details_style">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
     </style>
 
     <style name="style_textview_widget">

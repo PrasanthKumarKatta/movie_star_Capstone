@@ -28,10 +28,7 @@
                 android:id="@+id/feedback"
                 android:icon="@drawable/ic_feedback_black_24dp"
                 android:title="FeedBack" />
-            <item
-                android:id="@+id/help"
-                android:icon="@drawable/ic_help_black_24dp"
-                android:title="Help" />
+
             <item
                 android:id="@+id/share"
                 android:icon="@drawable/ic_menu_share"

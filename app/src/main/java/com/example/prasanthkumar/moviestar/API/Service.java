@@ -1,7 +1,7 @@
 package com.example.prasanthkumar.moviestar.API;
 
 import com.example.prasanthkumar.moviestar.Model.CastResponse;
-import com.example.prasanthkumar.moviestar.Model.GallaryResponse;
+import com.example.prasanthkumar.moviestar.Model.GalleryResponse;
 import com.example.prasanthkumar.moviestar.Model.MoviesResponse;
 import com.example.prasanthkumar.moviestar.Model.ReviewResponse;
 import com.example.prasanthkumar.moviestar.Model.TrailerResponse;
@@ -34,14 +34,12 @@ public interface Service {
     @GET("movie/{movie_id}/videos")
     Call<TrailerResponse> getMovieTrailer(@Path("movie_id") int id, @Query("api_key") String apiKey);
 
-    @GET("movie/{movie_id}/casts")
-    Call<CastResponse> getMovieCasts(@Path("movie_id") int id, @Query("api_key") String apikey);
-
-    @GET("movie/{movie_id}/images")
-    Call<GallaryResponse> getMovieImages(@Path("movie_id") int id, @Query("api_key") String apikey);
-
     @GET("movie/{movie_id}/reviews")
     Call<ReviewResponse> getMovieReviews(@Path("movie_id") int id, @Query("api_key") String apiKey);
 
+    @GET("movie/{movie_id}/casts")
+    Call<CastResponse> getMovieCasts(@Path("movie_id") int id, @Query("api_key") String apiKey);
 
+    @GET("movie/{movie_id}/images")
+    Call<GalleryResponse> getMovieImages(@Path("movie_id") int id, @Query("api_key") String apiKey);
 }

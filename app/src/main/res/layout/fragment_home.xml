@@ -32,7 +32,7 @@
                 android:textStyle="bold"
                 tools:ignore="RtlSymmetry" />
 
-            <android.support.v7.widget.RecyclerView
+            <com.example.prasanthkumar.moviestar.UIScreens.StatefulRecyclerView
                 android:id="@+id/recyclerview1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -54,7 +54,7 @@
                 android:textStyle="bold"
                 tools:ignore="RtlSymmetry" />
 
-            <android.support.v7.widget.RecyclerView
+            <com.example.prasanthkumar.moviestar.UIScreens.StatefulRecyclerView
                 android:id="@+id/recyclerview2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -76,7 +76,7 @@
                 android:textStyle="bold"
                 tools:ignore="RtlSymmetry" />
 
-            <android.support.v7.widget.RecyclerView
+            <com.example.prasanthkumar.moviestar.UIScreens.StatefulRecyclerView
                 android:id="@+id/recyclerview3"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -98,7 +98,7 @@
                 android:textStyle="bold"
                 tools:ignore="RtlSymmetry" />
 
-            <android.support.v7.widget.RecyclerView
+            <com.example.prasanthkumar.moviestar.UIScreens.StatefulRecyclerView
                 android:id="@+id/recyclerview4"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -120,7 +120,7 @@
                 android:textStyle="bold"
                 tools:ignore="RtlSymmetry" />
 
-            <android.support.v7.widget.RecyclerView
+            <com.example.prasanthkumar.moviestar.UIScreens.StatefulRecyclerView
                 android:id="@+id/recyclerview5"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

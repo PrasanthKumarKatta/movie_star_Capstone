@@ -18,49 +18,49 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class CastsAdapter  extends RecyclerView.Adapter<CastsAdapter.CrewInfo> {
-    Context ct;
+public class CastsAdapter extends RecyclerView.Adapter<CastsAdapter.CastsInfo>
+{
+    private Context context;
     private List<Cast> castList;
-
-    public CastsAdapter(Context ct, List<Cast> castList)
+    public CastsAdapter(Context context, List<Cast> castList)
     {
-        this.ct = ct;
+        this.context = context;
         this.castList = castList;
     }
 
     @NonNull
     @Override
-    public CrewInfo onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new CrewInfo(LayoutInflater.from(parent.getContext()).inflate(R.layout.crew_row_card, parent, false));
+    public CastsInfo onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View v = LayoutInflater.from(context).inflate(R.layout.crew_row_card,parent,false);
+        return new CastsInfo(v);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull CrewInfo holder, int position) {
+    public void onBindViewHolder(@NonNull CastsInfo holder, int position)
+    {
+        holder.name_crew.setText("Name: "+castList.get(position).getName());
+        holder.character.setText("Character: "+castList.get(position).getCharacter());
+        Picasso.with(context)
+                .load(castList.get(position).getProfile_link())
+                .placeholder(R.mipmap.ic_launcher)
+                .into(holder.img);
 
-        Cast crewCurrentdata = castList.get(position);
-        holder.name.append(crewCurrentdata.getName());
-        holder.character.append(crewCurrentdata.getCharacter());
-        String baseUrl = "https://image.tmdb.org/t/p/w500"+crewCurrentdata.getProfilePath();
-        Picasso.with(ct).load(baseUrl).placeholder(R.drawable.loading_gif)
-                .centerCrop()
-                .into(holder.imageView);
     }
-
     @Override
     public int getItemCount() {
         return castList.size();
     }
 
-    public class CrewInfo extends RecyclerView.ViewHolder {
-
-        @BindView(R.id.imageView) ImageView imageView;
-        @BindView(R.id.name_crew) TextView name;
+    public class CastsInfo extends RecyclerView.ViewHolder
+    {
+        @BindView(R.id.image_crew) ImageView img;
+        @BindView(R.id.name_crew) TextView name_crew;
         @BindView(R.id.character_crew) TextView character;
 
-        public CrewInfo(View itemView) {
+        public CastsInfo(View itemView)
+        {
             super(itemView);
-            ButterKnife.bind(this, itemView);
-
+            ButterKnife.bind(this,itemView);
         }
     }
 }

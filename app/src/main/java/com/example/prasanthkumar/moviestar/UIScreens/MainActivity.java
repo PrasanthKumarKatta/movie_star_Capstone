@@ -1,10 +1,15 @@
 package com.example.prasanthkumar.moviestar.UIScreens;
 
+import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.Handler;
+import android.provider.Settings;
+import android.support.annotation.NonNull;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.app.ShareCompat;
@@ -22,9 +27,14 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.prasanthkumar.moviestar.Adapters.MovieAdapter;
+import com.example.prasanthkumar.moviestar.CheckInternet.InternetConnection;
 import com.example.prasanthkumar.moviestar.R;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -33,11 +43,10 @@ public class MainActivity extends AppCompatActivity
     private FirebaseAuth mAuth;
     public static final String TAG1 = MovieAdapter.class.getName();
 
-
     private TextView userMail;
     private TextView userName;
-    private DatabaseReference databaseReference;
-
+    private DatabaseReference user_name_ref;
+    private DatabaseReference apk_ref;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,9 +57,7 @@ public class MainActivity extends AppCompatActivity
 
         mAuth = FirebaseAuth.getInstance();
 
-
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-
 
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -64,34 +71,53 @@ public class MainActivity extends AppCompatActivity
         userMail = header.findViewById(R.id.email_id_nav);
         userName = header.findViewById(R.id.username_id_nav);
 
-        userMail.setText(mAuth.getCurrentUser().getEmail());
+        checkInternet();
 
-        SharedPreferences sharedPreferences = this.getSharedPreferences("registration_details",MODE_PRIVATE);
-        String userName_shr = sharedPreferences.getString("userNameKey",null);
+    }
 
-        userName.setText(userName_shr);
-        userName.setAllCaps(true);
+    private void checkInternet() {
+        if (InternetConnection.isNetworkAvailable(getApplicationContext())) {
+            Toast.makeText(this, "Internet Connected", Toast.LENGTH_SHORT).show();
+            userMail.setText(mAuth.getCurrentUser().getEmail());
+            user_name_ref = FirebaseDatabase.getInstance().getReference().child("moviestar_users").child(mAuth.getCurrentUser().getUid()).child("name");
+            user_name_ref.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
-        /*
-        databaseReference = FirebaseDatabase.getInstance().getReference().child("moviestar_users");
-        databaseReference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                String val =  dataSnapshot.getValue().toString();
-                userName.setText("gvhjb"+val);
-            }
+                    String userName_firebase = dataSnapshot.getValue().toString();
+                    userName.setText(userName_firebase);
+                    userName.setAllCaps(true);
+                }
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-                Log.w(TAG,"failed to read value.",databaseError.toException());
-            }
-        });
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
 
-      */
+                }
+            });
 
+            displaySelectedScreen(R.id.home);
 
-        displaySelectedScreen(R.id.home);
+        } else {
+            android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(this);
+            builder.setTitle(R.string.permissions);
+            builder.setMessage(R.string.error_dialog_internet);
+            builder.setIcon(R.drawable.ic_sentiment_dissatisfied_black_24dp);
+            builder.setPositiveButton(getString(R.string.goto_settings_positive_btn), new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    Intent i = new Intent(Settings.ACTION_WIRELESS_SETTINGS);
+                    startActivity(i);
+                }
+            });
+            builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.dismiss();
 
+                }
+            });
+            builder.show();
+        }
     }
 
     @Override
@@ -102,28 +128,27 @@ public class MainActivity extends AppCompatActivity
         } else {
             super.onBackPressed();
         }
-    }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.main, menu);
-        return true;
-    }
+        android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(this);
+        builder.setTitle("Exit!");
+        builder.setMessage("do you want to exit?");
+        builder.setIcon(R.drawable.ic_exit_to_app_black_24dp);
+        builder.setPositiveButton(R.string.ok_alert, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                finish();
+            }
+        });
+        builder.setNegativeButton(R.string.cancel_alert, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+                Toast.makeText(MainActivity.this, "Okay continue...", Toast.LENGTH_SHORT).show();
+                checkInternet();
+            }
+        });
+        builder.show();
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
     }
 
     @SuppressWarnings("StatementWithEmptyBody")
@@ -143,19 +168,12 @@ public class MainActivity extends AppCompatActivity
         switch (id) {
             case R.id.home:
                 fragment = new Home();
-                Toast.makeText(this, "Home", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.chat_box:
-               /*  fragment = new Chat();
-                Toast.makeText(this, "Chat", Toast.LENGTH_SHORT).show();
-              */
-               Intent i = new Intent(this,ChatActivity.class);
-               i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_NEW_TASK);
-               startActivity(i);
+                fragment = new Chat();
                 break;
             case R.id.favorites:
-                fragment = new Favorites();
-                Toast.makeText(this, "Favorites", Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(this, FavoritesActivity.class));
                 break;
             case R.id.logout:
                 AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -168,9 +186,8 @@ public class MainActivity extends AppCompatActivity
                         mAuth.signOut();
                         finish();
                         Toast.makeText(MainActivity.this, R.string.logout_success_msg, Toast.LENGTH_SHORT).show();
-
                         Intent intent = new Intent(MainActivity.this, Login.class);
-                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_NEW_TASK);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                         startActivity(intent);
                     }
                 });
@@ -183,33 +200,55 @@ public class MainActivity extends AppCompatActivity
                 builder.show();
                 break;
             case R.id.share:
-                Intent shareIntent = ShareCompat.IntentBuilder.from(this)
-                        .setType("text/plain")
-                        .setText("https://drive.google.com/open?id=1rtzUrBMt3QfAQMcKgHTIKTTVlzbfUYld")
-                        .getIntent();
-                if (shareIntent.resolveActivity(getPackageManager()) != null) {
-                    startActivity(shareIntent);
-                }
+                apk_ref = FirebaseDatabase.getInstance().getReference().child("MovieStar_APK").child("APK");
+                apk_ref.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                        String apk_firebase_db = dataSnapshot.getValue().toString();
+                        shareAPK(apk_firebase_db);
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                    }
+                });
+
                 break;
             case R.id.feedback:
-                getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.content_frame, new Feedback())
-                        .commit();
-                Toast.makeText(this, "Feedback", Toast.LENGTH_SHORT).show();
-
-                break;
-            case R.id.help:
-
+                fragment = new Feedback();
                 break;
             case R.id.developer:
-
+                Intent i = new Intent(MainActivity.this, DeveloperActivity.class);
+                i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(i);
                 break;
         }
 
-        if (fragment != null){
-            FragmentTransaction ft= getSupportFragmentManager().beginTransaction();
+        if (fragment != null) {
+            FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
             ft.replace(R.id.content_frame, fragment);
+            ft.addToBackStack(null);
             ft.commit();
         }
     }
+
+    private void shareAPK(String apk_firebase_db) {
+        Intent shareIntent = ShareCompat.IntentBuilder.from(this)
+                .setType("text/plain")
+                .setText("Movie Star \n" + "\n" + apk_firebase_db)
+                .getIntent();
+        if (shareIntent.resolveActivity(getPackageManager()) != null) {
+            startActivity(shareIntent);
+        }
+
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        checkInternet();
+    }
+
 }

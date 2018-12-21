@@ -1,15 +1,15 @@
 <resources>
     <string name="app_name">MovieStar</string>
     <string name="movie_star">Movie Star   \t \t \t \t \t \t Movie Star \t \t \t \t </string>
-    <string name="create_a_password">Create a Password</string>
-    <string name="reset">Reset</string>
+    <string name="create_a_password">Create a 6 digits Password</string>
+    <string name="reset"> Reset </string>
     <string name="enter_user_name">Enter User Name</string>
-    <string name="email_id_text">Enter Email Id</string>
+    <string name="email_id_text">Enter any gmail Id</string>
     <string name="alert_yes_btn">Yes</string>
     <string name="alert_no_btn">No</string>
     <string name="new_user">New User?</string>
-    <string name="enter_your_password">Enter your Password</string>
-    <string name="enter_your_email_id">Enter Your Email Id</string>
+    <string name="enter_your_password">Enter your Password </string>
+    <string name="enter_your_email_id">Enter Your User Name\nEmail Id and Password </string>
     <string name="no_btn_alert">No</string>
     <string name="alert_msg">Do you want to Exit from this App?</string>
     <string name="alert_title">Exit!</string>
@@ -27,8 +27,6 @@
     <string name="english_movies">English Movies</string>
     <string name="panjabi_movies">Panjabi Movies</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="alert_logout_msg">Dou you want to LogOut</string>
     <string name="logout_success_msg">Logout Successfully</string>
     <string name="signin">SignIn</string>
@@ -45,5 +43,34 @@
     <string name="name_crew">Name :</string>
     <string name="character_crew">Character :</string>
     <string name="reviews">Reviews</string>
+    <string name="experience">Experience:</string>
+    <string name="katta_prasanth_kumar">Katta Prasanth Kumar</string>
+    <string name="name_profile">Name:</string>
+    <string name="mail_id">Mail Id:</string>
+    <string name="noData">No Data</string>
+    <string name="deleted">Deleted Successfully</string>
+    <string name="notdeleted">Not Deleted</string>
+
+    <string name="permissions">Need Internet Permissions</string>
+    <string name="error_dialog_internet">No Internet Connection!</string>
+    <string name="goto_settings_positive_btn">Go to Settings</string>
+    <string name="experience_years">2+</string>
+    <string name="developer_mail_id">kpcode4u@gmail.com</string>
+    <string name="kattaprasanthkumar">KattaPrasanthKumar</string>
+    <string name="forgetpassword">ForgetPassword</string>
+    <string name="reset_password">Reset Password</string>
+    <string name="forgot_password">Forgot password</string>
+    <string name="we_need_your_registered_email_id_to_sent_your_password">We need your Registered Email ID to sent your Password</string>
+
+    <string name="signup"> Sign Up </string>
+    <string name="ok_alert">Ok</string>
+    <string name="enter_your_email_id_login">Enter your Email Id</string>
+    <string name="author_review_adaptertext">Author:</string>
+    <string name="cancel_alert">Cancel</string>
+    <string name="image_todo">Image_TODO</string>
+    <string name="trailer">Trailer</string>
+    <string name="noreview_text">No Review Available</string>
+    <string name="description_details">Description</string>
+
 
 </resources>

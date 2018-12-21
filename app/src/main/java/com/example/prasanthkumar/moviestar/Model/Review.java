@@ -5,16 +5,26 @@ import com.google.gson.annotations.SerializedName;
 
 public class Review {
 
-    @SerializedName("author")
-    @Expose
+    /* @SerializedName("author")
+     @Expose
+    */
     private String author;
-    @SerializedName("content")
-    @Expose
+    /* @SerializedName("content")
+     @Expose
+    */
     private String content;
+    private String id;
 
-    public Review(String author, String content) {
+   /* public Review(String author, String content) {
         this.author = author;
         this.content = content;
+    }
+*/
+
+    public Review(String author, String content, String id) {
+        this.author = author;
+        this.content = content;
+        this.id = id;
     }
 
     public String getContent() {

@@ -30,7 +30,6 @@ public class YoutubePlayerActivity extends YouTubeBaseActivity {
                 String vid =getIntent().getStringExtra("videoKey");
                 youTubePlayer.loadVideo(vid);
             }
-
             @Override
             public void onInitializationFailure(YouTubePlayer.Provider provider, YouTubeInitializationResult youTubeInitializationResult) {
 

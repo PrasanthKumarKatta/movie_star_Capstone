@@ -3,7 +3,9 @@ package com.example.prasanthkumar.moviestar.Data;
 import android.provider.BaseColumns;
 
 public class Favorites_Contract {
-    public static final class FavoriteEntry implements BaseColumns {
+
+    public static final class FavoriteEntry implements BaseColumns
+    {
         public static final String TABLE_NAME = "favorites";
         public static final String COLUMN_MOVIEID = "movieid";
         public static final String COLUMN_TITLE = "title";

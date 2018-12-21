@@ -1,5 +1,6 @@
 package com.example.prasanthkumar.moviestar.Adapters;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
@@ -21,9 +22,19 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieInfo> {
+public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieInfo>
+{
     private Context context;
     private List<Movie> movieList;
+    private static final String Title = "original_title";
+    private static final String Poster_path = "poster";
+    private static final String Release_date = "release";
+    private static final String Vote_average = "vote";
+    private static final String Overview = "overview";
+    private static final String Id = "id";
+    private static final String backDropImg_key = "backdropImg";
+
+    ProgressDialog progressDialog;
 
     public MovieAdapter(Context context, List<Movie> movieList) {
         this.context = context;
@@ -39,11 +50,14 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieInfo> {
 
     @Override
     public void onBindViewHolder(@NonNull MovieInfo holder, int position) {
+        progressDialog = new ProgressDialog(context);
+        progressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
+        progressDialog.show();
 
         Picasso.with(context)
-                .load(movieList.get(position).getPosterPath())
+                .load("http://image.tmdb.org/t/p/w500" + movieList.get(position).getPosterPath())
                 .placeholder(R.drawable.loading_gif).into(holder.thumbnail_img);
-//        Toast.makeText(context, ""+movieList.get(position).getPosterPath()+"\n"+movieList.get(position).getOriginal_title(), Toast.LENGTH_SHORT).show();
+        progressDialog.dismiss();
         Double rating = Double.parseDouble(String.valueOf(movieList.get(position).getVoteAverage()));
         holder.movie_rating.setText(String.valueOf(rating)+"/10");
     }
@@ -54,8 +68,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieInfo> {
         return movieList.size();
     }
 
-    public class MovieInfo extends RecyclerView.ViewHolder
-    {
+    public class MovieInfo extends RecyclerView.ViewHolder {
 
         @BindView(R.id.thumbnail_img) ImageView thumbnail_img;
         @BindView(R.id.movie_rating) TextView movie_rating;
@@ -71,12 +84,9 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieInfo> {
                 public void onClick(View v)
                 {
                     int pos = getLayoutPosition();
-                    Toast.makeText(context, "pos:"+pos, Toast.LENGTH_SHORT).show();
                     passDataToDetails(pos);
-
                 }
             });
-
         }
     }
 
@@ -84,17 +94,19 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieInfo> {
         if(pos != RecyclerView.NO_POSITION) {
             Movie clickedDataItems = movieList.get(pos);
             Intent i = new Intent(context, DetailsActivity.class);
-            i.putExtra("original_title", clickedDataItems.getOriginal_title());
+            i.putExtra(Title, clickedDataItems.getOriginal_title());
             Toast.makeText(context, ""+ clickedDataItems.getOriginal_title(), Toast.LENGTH_SHORT).show();
-            i.putExtra("poster_path", clickedDataItems.getPosterPath());
-            i.putExtra("overview", clickedDataItems.getOverview());
-            i.putExtra("vote_average", clickedDataItems.getVoteAverage());
-            i.putExtra("release_date", clickedDataItems.getReleaseDate());
-            i.putExtra("id",clickedDataItems.getId());
-            i.putExtra("backdropImg",clickedDataItems.getBackdrop_path());
+            i.putExtra(Poster_path, clickedDataItems.getPosterPath());
+            i.putExtra(Overview, clickedDataItems.getOverview());
+            i.putExtra(Vote_average, clickedDataItems.getVoteAverage());
+            i.putExtra(Release_date, clickedDataItems.getReleaseDate());
+            i.putExtra(Id,clickedDataItems.getId());
+            i.putExtra(backDropImg_key,clickedDataItems.getBackdrop_path());
+
             i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             context.startActivity(i);
 
         }
     }
+
 }

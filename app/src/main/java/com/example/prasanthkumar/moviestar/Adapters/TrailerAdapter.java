@@ -54,10 +54,8 @@ public class TrailerAdapter extends RecyclerView.Adapter<TrailerAdapter.TrailerI
             }
             @Override
             public void onInitializationFailure(YouTubeThumbnailView youTubeThumbnailView, YouTubeInitializationResult youTubeInitializationResult) {
-
             }
         });
-
     }
 
     @Override
@@ -70,7 +68,7 @@ public class TrailerAdapter extends RecyclerView.Adapter<TrailerAdapter.TrailerI
         @BindView(R.id.trailer_thumbnail_img) YouTubeThumbnailView imageView;
         @BindView(R.id.title_trailer) TextView trailer_Title;
 
-        public TrailerInfo(View itemView) {
+        TrailerInfo(View itemView) {
             super(itemView);
             ButterKnife.bind(this,itemView);
 
@@ -78,7 +76,6 @@ public class TrailerAdapter extends RecyclerView.Adapter<TrailerAdapter.TrailerI
                 @Override
                 public void onClick(View v) {
                     int pos = getLayoutPosition();
-                    //passtoYoutube(pos);
                     callYoutube(pos);
                 }
             });
@@ -98,17 +95,6 @@ public class TrailerAdapter extends RecyclerView.Adapter<TrailerAdapter.TrailerI
         }
     }
 
-    private void passtoYoutube(int pos) {
-        if (pos !=RecyclerView.NO_POSITION)
-        {
-            Trailer clickedItems = trailerList.get(pos);
-            String videoId = clickedItems.getKey();
-            Intent i = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.youtube.com/watch?v="+videoId));
-            i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            context.startActivity(i);
-        }
-
-    }
 
     private class ThumbnailLoadedListener implements YouTubeThumbnailLoader.OnThumbnailLoadedListener {
         @Override

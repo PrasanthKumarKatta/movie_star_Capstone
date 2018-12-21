@@ -1,5 +1,8 @@
 package com.example.prasanthkumar.moviestar.Model;
 
+import android.database.Cursor;
+import android.util.Log;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
@@ -25,14 +28,18 @@ public class Movie  {
     @SerializedName("id")
     @Expose
     private Integer id;
-    @SerializedName("video")
-    @Expose
-    private Boolean video;
+
     @SerializedName("backdrop_path")
     @Expose
     private String backdrop_path;
 
-    public Movie(String original_title, String posterPath, String overview, Double voteAverage, String releaseDate, Integer id, Boolean video, String backdrop_path)
+//    private int mvote_count;
+
+
+    public Movie(String original_title, String posterPath,
+                 String overview, Double voteAverage,
+                 String releaseDate, Integer id,
+                 String backdrop_path)
     {
         this.original_title = original_title;
         this.posterPath = posterPath;
@@ -40,8 +47,11 @@ public class Movie  {
         this.voteAverage = voteAverage;
         this.releaseDate = releaseDate;
         this.id = id;
-        this.video = video;
         this.backdrop_path = backdrop_path;
+    }
+
+    public Movie() {
+
     }
 
     public String getOriginal_title() {
@@ -53,7 +63,7 @@ public class Movie  {
     }
 
     public String getPosterPath() {
-        return "http://image.tmdb.org/t/p/w500" + posterPath;
+        return  posterPath;
     }
 
     public void setPosterPath(String posterPath) {
@@ -92,19 +102,30 @@ public class Movie  {
         this.id = id;
     }
 
-    public Boolean getVideo() {
-        return video;
-    }
-
-    public void setVideo(Boolean video) {
-        this.video = video;
-    }
-
     public String getBackdrop_path() {
-        return "https://image.tmdb.org/t/p/w500" + backdrop_path;
+        return  backdrop_path;
     }
 
     public void setBackdrop_path(String backdrop_path) {
         this.backdrop_path = backdrop_path;
     }
+
+  /*  public MovieInfo(Cursor cursor) {
+
+        this.id = cursor.getInt(1);
+        this.mvote_count = 0;
+        this.mvideo = null;
+        this.mvote_average = cursor.getString(2);
+        this.mtitle = cursor.getString(3);
+        this.mpopularity = null;
+        this.mposter_path = cursor.getString(4);
+        Log.i("posterpath", cursor.getString(4));
+        this.moriginal_language = null;
+        this.moriginal_title = cursor.getString(5);
+        this.mbackdrop_path = cursor.getString(6);
+        this.madult = null;
+        this.moverview = cursor.getString(7);
+        this.mrelease_date = cursor.getString(8);
+
+    }*/
 }

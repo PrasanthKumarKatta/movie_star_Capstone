@@ -6,21 +6,25 @@ import com.google.gson.annotations.SerializedName;
 import java.util.List;
 
 public class CastResponse {
+
     @SerializedName("id")
     @Expose
-    private Integer id;
+    private int id;
+
     @SerializedName("cast")
     @Expose
-    private List<Cast> cast = null;
-    @SerializedName("crew")
-    @Expose
-    private List<Crew> crew = null;
+    private List<Cast> cast;
 
-    public Integer getId() {
+    public CastResponse(int id, List<Cast> cast) {
+        this.id = id;
+        this.cast = cast;
+    }
+
+    public int getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -30,19 +34,5 @@ public class CastResponse {
 
     public void setCast(List<Cast> cast) {
         this.cast = cast;
-    }
-
-    public List<Crew> getCrew() {
-        return crew;
-    }
-
-    public void setCrew(List<Crew> crew) {
-        this.crew = crew;
-    }
-
-    public CastResponse(Integer id, List<Cast> cast, List<Crew> crew) {
-        this.id = id;
-        this.cast = cast;
-        this.crew = crew;
     }
 }

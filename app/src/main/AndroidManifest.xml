@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.example.prasanthkumar.moviestar">
 
     <uses-permission android:name="android.permission.INTERNET" />
@@ -10,10 +11,18 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/movie_star"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme"
+        tools:ignore="AllowBackup">
         <activity
-            android:name=".UIScreens.SplashActivity"
-            android:launchMode="singleTop">
+            android:name=".UIScreens.Register"
+            android:label="Sign Up"
+            tools:ignore="InnerclassSeparator"
+            />
+        <activity
+            android:name=".UIScreens.Login"
+            android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize"
+            android:launchMode="singleTop"
+            tools:ignore="InnerclassSeparator">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -21,41 +30,32 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".UIScreens.Register"
-            android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize"
-            android:launchMode="singleTop"
-            android:parentActivityName=".UIScreens.Login" />
-        <activity
-            android:name=".UIScreens.Login"
-            android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize"
-            android:launchMode="singleTop" />
-        <activity
             android:name=".UIScreens.MainActivity"
             android:label="@string/app_name"
+            android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize"
             android:launchMode="singleTop"
             android:parentActivityName=".UIScreens.Login"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar"
+            tools:ignore="InnerclassSeparator" />
         <activity
             android:name=".UIScreens.DetailsActivity"
             android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize"
-            android:parentActivityName=".UIScreens.MainActivity"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".UIScreens.Crew"
-            android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize"
-            android:launchMode="singleTop"
-            android:parentActivityName=".UIScreens.DetailsActivity" />
+            android:theme="@style/AppTheme.NoActionBar"
+            tools:ignore="InnerclassSeparator" />
         <activity
             android:name=".UIScreens.TrailersActivity"
-            android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize"
+            tools:ignore="InnerclassSeparator"
             android:launchMode="singleTop"
-            android:parentActivityName=".UIScreens.DetailsActivity" />
+            />
         <activity
             android:name=".UIScreens.YoutubePlayerActivity"
             android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize"
-            android:screenOrientation="landscape" />
+            android:launchMode="singleTop"
+            android:screenOrientation="landscape"
+            tools:ignore="InnerclassSeparator" />
 
-        <receiver android:name=".HomeWidget.MovieStarWidget">
+        <receiver android:name=".HomeWidget.MovieStarWidget"
+            tools:ignore="InnerclassSeparator">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
             </intent-filter>
@@ -65,18 +65,30 @@
                 android:resource="@xml/movie_star_widget_info" />
         </receiver>
 
+        <activity
+            android:name=".UIScreens.DeveloperActivity"
+            android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize"
+            android:label="Developer Profile"
+            android:launchMode="singleTop"
+            tools:ignore="InnerclassSeparator" />
+        <activity
+            android:name=".UIScreens.CastsActivity"
+            tools:ignore="InnerclassSeparator"
+            />
+        <activity
+            android:name=".UIScreens.PostersActivity"
+            tools:ignore="InnerclassSeparator"
+            />
         <provider
             android:name=".Data.MovieStarContentProvider"
             android:authorities="com.example.prasanthkumar.moviestar"
             android:enabled="true"
-            android:exported="true" />
+            android:exported="true"
+            tools:ignore="ExportedContentProvider,InnerclassSeparator" />
 
-        <activity
-            android:name=".UIScreens.ChatActivity"
+        <activity android:name=".UIScreens.FavoritesActivity"
+            tools:ignore="InnerclassSeparator"
             android:parentActivityName=".UIScreens.MainActivity"
-            android:launchMode="singleTop"
-            android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize"
-            ></activity>
+            />
     </application>
-
 </manifest>
