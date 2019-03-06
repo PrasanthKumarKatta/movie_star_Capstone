@@ -3,18 +3,14 @@ package com.example.prasanthkumar.moviestar.UIScreens;
 
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.res.Configuration;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.DividerItemDecoration;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -34,6 +30,7 @@ import com.example.prasanthkumar.moviestar.R;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -47,26 +44,17 @@ import retrofit2.Response;
  */
 public class Home extends Fragment {
 
-    @BindView(R.id.main_content)
-    SwipeRefreshLayout swipeRefreshLayout;
-    public @BindView(R.id.recyclerview1)
-    StatefulRecyclerView mRecyclerView1;
-    public @BindView(R.id.recyclerview2)
-    StatefulRecyclerView mRecyclerView2;
-    public @BindView(R.id.recyclerview3)
-    StatefulRecyclerView mRecyclerView3;
-    public @BindView(R.id.recyclerview4)
-    StatefulRecyclerView mRecyclerView4;
-    public @BindView(R.id.recyclerview5)
-    StatefulRecyclerView mRecyclerView5;
+    @BindView(R.id.main_content) SwipeRefreshLayout swipeRefreshLayout;
+    @BindView(R.id.recyclerview1) StatefulRecyclerView mRecyclerView1;
+    @BindView(R.id.recyclerview2) StatefulRecyclerView mRecyclerView2;
+    @BindView(R.id.recyclerview3) StatefulRecyclerView mRecyclerView3;
+    @BindView(R.id.recyclerview4) StatefulRecyclerView mRecyclerView4;
+    @BindView(R.id.recyclerview5) StatefulRecyclerView mRecyclerView5;
     private ArrayList<Movie> movieList;
     private MovieAdapter adapter;
     private int mPosition;
-    public String language = null;
-    private static final String TAG = MainActivity.class.getSimpleName();
+    private String language = null;
 
-    public final static String LIST_STATE_KEY = "recycler_list_state";
-    Parcelable listState;
     private LinearLayoutManager llm;
 
     public Home() {
@@ -74,7 +62,7 @@ public class Home extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_home, container, false);
         ButterKnife.bind(this, view);
@@ -85,15 +73,10 @@ public class Home extends Fragment {
         if (savedInstanceState != null) {
             int pos = savedInstanceState.getInt("pos");
             movieList = (ArrayList<Movie>) savedInstanceState.getSerializable("ss");
-        //    mRecyclerView1.setLayoutManager(llm);
             mRecyclerView1.setAdapter(new MovieAdapter(getActivity(), movieList));
-          //  mRecyclerView2.setLayoutManager(llm);
             mRecyclerView2.setAdapter(new MovieAdapter(getActivity(), movieList));
-           // mRecyclerView3.setLayoutManager(llm);
             mRecyclerView3.setAdapter(new MovieAdapter(getActivity(), movieList));
-           // mRecyclerView4.setLayoutManager(llm);
             mRecyclerView4.setAdapter(new MovieAdapter(getActivity(), movieList));
-           // mRecyclerView5.setLayoutManager(llm);
             mRecyclerView5.setAdapter(new MovieAdapter(getActivity(), movieList));
         }
 
@@ -103,7 +86,7 @@ public class Home extends Fragment {
         return view;
     }
     private void checkInternet() {
-        if (InternetConnection.isNetworkAvailable(getContext())) {
+        if (InternetConnection.isNetworkAvailable(Objects.requireNonNull(getContext()))) {
             Toast.makeText(getContext(), "Internet Connected", Toast.LENGTH_SHORT).show();
             initviews();
             initviews1();
@@ -157,7 +140,6 @@ public class Home extends Fragment {
             }
         });
         language = "te";
-        //loadTeluguMovies(language);
 
         TeluguAsyncTask teluguAsyncTask = new TeluguAsyncTask(getActivity(),mRecyclerView1);
         teluguAsyncTask.execute();
@@ -191,37 +173,32 @@ public class Home extends Fragment {
 
     private void loadEnglishMovies(String language) {
         try {
-            if (BuildConfig.THE_MOVIE_DB_API_TOKEN.isEmpty()) {
-                Toast.makeText(getContext(), "Please get API key firstly From themoviedb.org", Toast.LENGTH_SHORT).show();
-                return;
-            } else {
-                Client client = new Client();
-                Service api_Service = client.getClient().create(Service.class);
-                Call<MoviesResponse> call = api_Service.getEnglishMovies(BuildConfig.THE_MOVIE_DB_API_TOKEN, language);
-                call.enqueue(new Callback<MoviesResponse>() {
-                    @Override
-                    public void onResponse(Call<MoviesResponse> call, Response<MoviesResponse> response) {
+            Client client = new Client();
+            Service api_Service = Client.getClient().create(Service.class);
+            Call<MoviesResponse> call = api_Service.getEnglishMovies(BuildConfig.THE_MOVIE_DB_API_TOKEN, language);
+            call.enqueue(new Callback<MoviesResponse>() {
+                @Override
+                public void onResponse(@NonNull Call<MoviesResponse> call, @NonNull Response<MoviesResponse> response) {
 
-                        List<Movie> movieList = response.body().getResults();
+                    List<Movie> movieList = Objects.requireNonNull(response.body()).getResults();
 
-                        mRecyclerView2.setAdapter(new MovieAdapter(getContext(), movieList));
+                    mRecyclerView2.setAdapter(new MovieAdapter(getContext(), movieList));
 
-                        //mRecyclerView.smoothScrollToPosition(0);
-                        //  mRecyclerView1.scrollToPosition(position);
-                        if (swipeRefreshLayout.isRefreshing()) {
-                            swipeRefreshLayout.setRefreshing(false);
-                        }
-
+                    //mRecyclerView.smoothScrollToPosition(0);
+                    //  mRecyclerView1.scrollToPosition(position);
+                    if (swipeRefreshLayout.isRefreshing()) {
+                        swipeRefreshLayout.setRefreshing(false);
                     }
 
-                    @Override
-                    public void onFailure(Call<MoviesResponse> call, Throwable t) {
+                }
 
-                        Log.d("Error", t.getMessage());
-                        Toast.makeText(getContext(), "Error in Fetching Data!", Toast.LENGTH_SHORT).show();
-                    }
-                });
-            }
+                @Override
+                public void onFailure(Call<MoviesResponse> call, Throwable t) {
+
+                    Log.d("Error", t.getMessage());
+                    Toast.makeText(getContext(), "Error in Fetching Data!", Toast.LENGTH_SHORT).show();
+                }
+            });
         } catch (Exception e) {
             Log.d("Error", e.getMessage());
             Toast.makeText(getContext(), "" + e.toString(), Toast.LENGTH_SHORT).show();
@@ -241,7 +218,7 @@ public class Home extends Fragment {
             @Override
             public void onRefresh() {
                 initviews();
-                Toast.makeText(getContext(), "Movies Refreshed", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), R.string.moviesResfreshed, Toast.LENGTH_SHORT).show();
                 if (swipeRefreshLayout.isRefreshing()){
                     swipeRefreshLayout.setRefreshing(false);
                 }
@@ -254,38 +231,29 @@ public class Home extends Fragment {
 
     private void loadHindiMovies(String language) {
         try {
-            if (BuildConfig.THE_MOVIE_DB_API_TOKEN.isEmpty()) {
-                Toast.makeText(getContext(), "Please get API key firstly From themoviedb.org", Toast.LENGTH_SHORT).show();
+            Client client = new Client();
+            Service api_Service = Client.getClient().create(Service.class);
+            Call<MoviesResponse> call = api_Service.getHindiMovies(BuildConfig.THE_MOVIE_DB_API_TOKEN, language);
+            call.enqueue(new Callback<MoviesResponse>() {
+                @Override
+                public void onResponse(@NonNull Call<MoviesResponse> call, Response<MoviesResponse> response) {
 
-                return;
-            } else {
-                Client client = new Client();
-                Service api_Service = client.getClient().create(Service.class);
-                Call<MoviesResponse> call = api_Service.getHindiMovies(BuildConfig.THE_MOVIE_DB_API_TOKEN, language);
-                call.enqueue(new Callback<MoviesResponse>() {
-                    @Override
-                    public void onResponse(Call<MoviesResponse> call, Response<MoviesResponse> response) {
+                    List<Movie> movieList = Objects.requireNonNull(response.body()).getResults();
 
-                        List<Movie> movieList = response.body().getResults();
-
-                        mRecyclerView3.setAdapter(new MovieAdapter(getContext(), movieList));
-
-                        //mRecyclerView.smoothScrollToPosition(0);
-                        //  mRecyclerView1.scrollToPosition(position);
-                        if (swipeRefreshLayout.isRefreshing()) {
-                            swipeRefreshLayout.setRefreshing(false);
-                        }
-
+                    mRecyclerView3.setAdapter(new MovieAdapter(getContext(), movieList));
+                    if (swipeRefreshLayout.isRefreshing()) {
+                        swipeRefreshLayout.setRefreshing(false);
                     }
 
-                    @Override
-                    public void onFailure(Call<MoviesResponse> call, Throwable t) {
+                }
 
-                        Log.d("Error", t.getMessage());
-                        Toast.makeText(getContext(), "Error in Fetching Data!", Toast.LENGTH_SHORT).show();
-                    }
-                });
-            }
+                @Override
+                public void onFailure(@NonNull Call<MoviesResponse> call, @NonNull Throwable t) {
+
+                    Log.d("Error", t.getMessage());
+                    Toast.makeText(getContext(), "Error in Fetching Data!", Toast.LENGTH_SHORT).show();
+                }
+            });
         } catch (Exception e) {
             Log.d("Error", e.getMessage());
             Toast.makeText(getContext(), "" + e.toString(), Toast.LENGTH_SHORT).show();
@@ -295,8 +263,6 @@ public class Home extends Fragment {
     private void initviews3() {
         movieList = new ArrayList<>();
         adapter = new MovieAdapter(getContext(), movieList);
-
-        //mRecyclerView1.setItemAnimator(new DefaultItemAnimator());
 
         mRecyclerView4.setAdapter(adapter);
         mRecyclerView4.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
@@ -321,37 +287,28 @@ public class Home extends Fragment {
 
     private void loadPanjabiMovies(String language) {
         try {
-            if (BuildConfig.THE_MOVIE_DB_API_TOKEN.isEmpty()) {
-                Toast.makeText(getContext(), "Please get API key firstly From themoviedb.org", Toast.LENGTH_SHORT).show();
-                return;
-            } else {
-                Client client = new Client();
-                Service api_Service = client.getClient().create(Service.class);
-                Call<MoviesResponse> call = api_Service.getPanjabiMovies(BuildConfig.THE_MOVIE_DB_API_TOKEN, language);
-                call.enqueue(new Callback<MoviesResponse>() {
-                    @Override
-                    public void onResponse(Call<MoviesResponse> call, Response<MoviesResponse> response) {
+            Client client = new Client();
+            Service api_Service = Client.getClient().create(Service.class);
+            Call<MoviesResponse> call = api_Service.getPanjabiMovies(BuildConfig.THE_MOVIE_DB_API_TOKEN, language);
+            call.enqueue(new Callback<MoviesResponse>() {
+                @Override
+                public void onResponse(@NonNull Call<MoviesResponse> call, Response<MoviesResponse> response) {
 
-                        List<Movie> movieList = response.body().getResults();
+                    List<Movie> movieList = Objects.requireNonNull(response.body()).getResults();
 
-                        mRecyclerView4.setAdapter(new MovieAdapter(getContext(), movieList));
-
-                        //mRecyclerView.smoothScrollToPosition(0);
-                        //  mRecyclerView1.scrollToPosition(position);
-                        if (swipeRefreshLayout.isRefreshing()) {
-                            swipeRefreshLayout.setRefreshing(false);
-                        }
-
+                    mRecyclerView4.setAdapter(new MovieAdapter(getContext(), movieList));
+                    if (swipeRefreshLayout.isRefreshing()) {
+                        swipeRefreshLayout.setRefreshing(false);
                     }
+                }
 
-                    @Override
-                    public void onFailure(Call<MoviesResponse> call, Throwable t) {
+                @Override
+                public void onFailure(@NonNull Call<MoviesResponse> call, @NonNull Throwable t) {
 
-                        Log.d("Error", t.getMessage());
-                        Toast.makeText(getContext(), "Error in Fetching Data!", Toast.LENGTH_SHORT).show();
-                    }
-                });
-            }
+                    Log.d("Error", t.getMessage());
+                    Toast.makeText(getContext(), R.string.errorAPIData, Toast.LENGTH_SHORT).show();
+                }
+            });
         } catch (Exception e) {
             Log.d("Error", e.getMessage());
             Toast.makeText(getContext(), "" + e.toString(), Toast.LENGTH_SHORT).show();
@@ -371,7 +328,7 @@ public class Home extends Fragment {
             @Override
             public void onRefresh() {
                 initviews();
-                Toast.makeText(getContext(), "Movies Refreshed", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), R.string.moviesResfreshed, Toast.LENGTH_SHORT).show();
                 if (swipeRefreshLayout.isRefreshing()){
                     swipeRefreshLayout.setRefreshing(false);
                 }
@@ -383,37 +340,29 @@ public class Home extends Fragment {
 
     private void loadTamilMovies(String language) {
         try {
-            if (BuildConfig.THE_MOVIE_DB_API_TOKEN.isEmpty()) {
-                Toast.makeText(getContext(), "Please get API key firstly From themoviedb.org", Toast.LENGTH_SHORT).show();
-                return;
-            } else {
-                Client client = new Client();
-                Service api_Service = client.getClient().create(Service.class);
-                Call<MoviesResponse> call = api_Service.getTamilMovies(BuildConfig.THE_MOVIE_DB_API_TOKEN, language);
-                call.enqueue(new Callback<MoviesResponse>() {
-                    @Override
-                    public void onResponse(Call<MoviesResponse> call, Response<MoviesResponse> response) {
+            Client client = new Client();
+            Service api_Service = Client.getClient().create(Service.class);
+            Call<MoviesResponse> call = api_Service.getTamilMovies(BuildConfig.THE_MOVIE_DB_API_TOKEN, language);
+            call.enqueue(new Callback<MoviesResponse>() {
+                @Override
+                public void onResponse(@NonNull Call<MoviesResponse> call, @NonNull Response<MoviesResponse> response) {
 
-                        List<Movie> movieList = response.body().getResults();
+                    List<Movie> movieList = Objects.requireNonNull(response.body()).getResults();
 
-                        mRecyclerView5.setAdapter(new MovieAdapter(getContext(), movieList));
-
-                        //mRecyclerView.smoothScrollToPosition(0);
-                        //  mRecyclerView1.scrollToPosition(position);
-                        if (swipeRefreshLayout.isRefreshing()) {
-                            swipeRefreshLayout.setRefreshing(false);
-                        }
-
+                    mRecyclerView5.setAdapter(new MovieAdapter(getContext(), movieList));
+                    if (swipeRefreshLayout.isRefreshing()) {
+                        swipeRefreshLayout.setRefreshing(false);
                     }
 
-                    @Override
-                    public void onFailure(Call<MoviesResponse> call, Throwable t) {
+                }
 
-                        Log.d("Error", t.getMessage());
-                        Toast.makeText(getContext(), "Error in Fetching Data!", Toast.LENGTH_SHORT).show();
-                    }
-                });
-            }
+                @Override
+                public void onFailure(@NonNull Call<MoviesResponse> call, @NonNull Throwable t) {
+
+                    Log.d("Error", t.getMessage());
+                    Toast.makeText(getContext(), R.string.errorAPIData, Toast.LENGTH_SHORT).show();
+                }
+            });
         } catch (Exception e) {
             Log.d("Error", e.getMessage());
             Toast.makeText(getContext(), "" + e.toString(), Toast.LENGTH_SHORT).show();
@@ -433,7 +382,7 @@ public class Home extends Fragment {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == android.R.id.home){
-            getActivity().finish();
+            Objects.requireNonNull(getActivity()).finish();
         }
 
         return super.onOptionsItemSelected(item);

@@ -4,16 +4,11 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.support.v4.app.FragmentActivity;
-import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.widget.Toast;
-
 import com.example.prasanthkumar.moviestar.Adapters.MovieAdapter;
 import com.example.prasanthkumar.moviestar.Model.Movie;
-import com.example.prasanthkumar.moviestar.Model.MoviesResponse;
-import com.example.prasanthkumar.moviestar.UIScreens.Home;
-import com.example.prasanthkumar.moviestar.UIScreens.MainActivity;
-import com.google.gson.JsonArray;
+import com.example.prasanthkumar.moviestar.R;
+import com.example.prasanthkumar.moviestar.UIScreens.StatefulRecyclerView;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -23,7 +18,6 @@ import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 
@@ -44,11 +38,13 @@ public class TeluguAsyncTask extends AsyncTask<String, Void, String> {
     private static final String overview = "overview";
     private static final String release_date = "release_date";
 
+    @SuppressLint("StaticFieldLeak")
     private Context context;
 
-    RecyclerView rv1;
+    @SuppressLint("StaticFieldLeak")
+    private StatefulRecyclerView rv1;
 
-    public TeluguAsyncTask(FragmentActivity home, RecyclerView mRecyclerView1) {
+    public TeluguAsyncTask(FragmentActivity home, StatefulRecyclerView mRecyclerView1) {
         this.context = home;
         this.rv1=mRecyclerView1;
     }
@@ -61,7 +57,7 @@ public class TeluguAsyncTask extends AsyncTask<String, Void, String> {
             InputStream inputStream = httpURLConnection.getInputStream();
             BufferedReader br = new BufferedReader(new InputStreamReader(inputStream));
             StringBuilder sb = new StringBuilder();
-            String line = null;
+            String line;
             while ((line = br.readLine()) != null) {
                 sb.append(line);
             }
@@ -100,7 +96,7 @@ public class TeluguAsyncTask extends AsyncTask<String, Void, String> {
             }
 
         } else {
-            Toast.makeText(context, "sorry!..", Toast.LENGTH_SHORT).show();
+            Toast.makeText(context, R.string.sorryToast, Toast.LENGTH_SHORT).show();
         }
     }
 }

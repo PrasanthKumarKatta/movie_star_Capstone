@@ -9,8 +9,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.MenuItem;
 import android.widget.Toast;
@@ -23,10 +21,10 @@ import com.example.prasanthkumar.moviestar.CheckInternet.InternetConnection;
 import com.example.prasanthkumar.moviestar.Model.Trailer;
 import com.example.prasanthkumar.moviestar.Model.TrailerResponse;
 import com.example.prasanthkumar.moviestar.R;
-import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -38,18 +36,16 @@ public class TrailersActivity extends AppCompatActivity {
 
     private static final  String id_key ="id";
     private static final  String originalTitle_key ="original_title";
-    int id;
-    String original_Title;
+    private int id;
+    private String original_Title;
     @BindView(R.id.trailer_recyclerview) StatefulRecyclerView recyclerView;
     private  List<Trailer> trailerList;
-    private int position;
-    private static final String SAVED_LAYOUT_MANAGER = "SavedLayoutManager" ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_trailers);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
         ButterKnife.bind(this);
         Intent intent = getIntent();
         setTitle(original_Title+"'s"+" Trailers");
@@ -59,8 +55,6 @@ public class TrailersActivity extends AppCompatActivity {
     private void checkInternet()
     {
         if (InternetConnection.isNetworkAvailable(getApplicationContext())){
-
-            Toast.makeText(this, "Internet Connected", Toast.LENGTH_SHORT).show();
             initviews();
         } else {
             android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(this);
@@ -87,10 +81,10 @@ public class TrailersActivity extends AppCompatActivity {
 
     private void initviews() {
         Intent intent = getIntent();
-        id = intent.getExtras().getInt(id_key);
+        id = Objects.requireNonNull(intent.getExtras()).getInt(id_key);
         original_Title = intent.getExtras().getString(originalTitle_key);
        // Toast.makeText(this, "id:"+id +"\n"+original_Title, Toast.LENGTH_SHORT).show();
-        setTitle(original_Title+"'s"+" Trailers");
+        setTitle(original_Title+"'s"+getString(R.string.trailersTitle));
 
         trailerList = new ArrayList<>();
         TrailerAdapter adapter = new TrailerAdapter(this,trailerList);
@@ -109,27 +103,21 @@ public class TrailersActivity extends AppCompatActivity {
 
     private void loadTrailers(int movie_id) {
         try{
-            if (BuildConfig.THE_MOVIE_DB_API_TOKEN.isEmpty()){
-                Toast.makeText(this, "Please get your API key from themoviedb.org", Toast.LENGTH_SHORT).show();
-                return;
-            }
             Client client = new Client();
-            Service api_Service =client.getClient().create(Service.class);
+            Service api_Service = Client.getClient().create(Service.class);
             Call<TrailerResponse> call = api_Service.getMovieTrailer(movie_id,BuildConfig.THE_MOVIE_DB_API_TOKEN);
             call.enqueue(new Callback<TrailerResponse>() {
                 @Override
-                public void onResponse(Call<TrailerResponse> call, Response<TrailerResponse> response) {
-                    List<Trailer> trailer = response.body().getResults();
+                public void onResponse(@NonNull Call<TrailerResponse> call, @NonNull Response<TrailerResponse> response) {
+                    List<Trailer> trailer = Objects.requireNonNull(response.body()).getResults();
                     Log.d("JsonResponse",trailer.toString());
                     recyclerView.setAdapter(new TrailerAdapter(getApplicationContext(),trailer));
-                    //recyclerView.smoothScrollToPosition(0);
-                    //recyclerView.scrollToPosition(position);
                 }
 
                 @Override
-                public void onFailure(Call<TrailerResponse> call, Throwable t) {
+                public void onFailure(@NonNull Call<TrailerResponse> call, @NonNull Throwable t) {
                     Log.d("Error",t.getMessage());
-                    Toast.makeText(TrailersActivity.this, "Error in Fetching Trailer Data", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(TrailersActivity.this, R.string.errorTrailerData, Toast.LENGTH_SHORT).show();
 
                 }
             });
@@ -148,18 +136,4 @@ public class TrailersActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-  /*  @Override
-    protected void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-        position = ((GridLayoutManager)recyclerView.getLayoutManager()).findFirstVisibleItemPosition();
-        outState.putInt(SAVED_LAYOUT_MANAGER, position);
-    }
-
-    @Override
-    protected void onRestoreInstanceState(Bundle savedInstanceState) {
-        position = ((GridLayoutManager)recyclerView.getLayoutManager()).findFirstVisibleItemPosition();
-        savedInstanceState.putInt(SAVED_LAYOUT_MANAGER, position);
-        super.onRestoreInstanceState(savedInstanceState);
-    }
-*/
 }

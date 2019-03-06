@@ -19,11 +19,10 @@ import android.widget.Toast;
 import com.example.prasanthkumar.moviestar.CheckInternet.InternetConnection;
 import com.example.prasanthkumar.moviestar.R;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
+
+import java.util.Objects;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -36,13 +35,11 @@ import static android.content.Context.MODE_PRIVATE;
  */
 public class Feedback extends Fragment {
 
-    @BindView(R.id.submitFeedback)
-    Button feedBackSubmit;
-    @BindView(R.id.edit_feedback)
-    EditText feedback_edittext;
+    @BindView(R.id.submitFeedback) Button feedBackSubmit;
+    @BindView(R.id.edit_feedback) EditText feedback_edittext;
 
     private DatabaseReference myRef;
-    FirebaseAuth mAuth;
+    private FirebaseAuth mAuth;
     private TextView userName;
     private DatabaseReference user_name_ref;
     private String userName_firebase;
@@ -52,7 +49,7 @@ public class Feedback extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_feedback, container, false);
@@ -65,18 +62,18 @@ public class Feedback extends Fragment {
                 checkInternet();
                 FirebaseDatabase database = FirebaseDatabase.getInstance();
                 myRef = database.getReference().child("User_Feedback");
-                SharedPreferences sharedPreferences = getContext().getSharedPreferences("registration_details", MODE_PRIVATE);
+                SharedPreferences sharedPreferences = Objects.requireNonNull(getContext()).getSharedPreferences("registration_details", MODE_PRIVATE);
                 String userName_shr = sharedPreferences.getString("userNameKey", null);
 
                 if (feedback_edittext.getText().toString().length() != 0) {
-                    myRef.child(mAuth.getCurrentUser().getUid()).child("UserName").setValue(userName_shr);
+                    myRef.child(Objects.requireNonNull(mAuth.getCurrentUser()).getUid()).child("UserName").setValue(userName_shr);
                     //myRef.child(mAuth.getCurrentUser().getUid()).child("UserName").setValue(userName_firebase);
                     myRef.child(mAuth.getCurrentUser().getUid()).child("feedback").setValue("" + feedback_edittext.getText().toString().trim());
-                    Toast.makeText(getContext(), "FeedBack Stored Sccessfully", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), R.string.eoorsFeedBakMsg, Toast.LENGTH_SHORT).show();
                     feedback_edittext.setText(null);
 
                 } else {
-                    Toast.makeText(getContext(), "You should be Enter Something Feedback!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), R.string.errorSomethingMsg, Toast.LENGTH_SHORT).show();
                 }
 
             }
@@ -87,8 +84,8 @@ public class Feedback extends Fragment {
     }
 
     private void checkInternet() {
-        if (InternetConnection.isNetworkAvailable(getContext())) {
-            Toast.makeText(getContext(), "Internet Connected", Toast.LENGTH_SHORT).show();
+        if (InternetConnection.isNetworkAvailable(Objects.requireNonNull(getContext()))) {
+            Toast.makeText(getContext(), R.string.internetConnneted, Toast.LENGTH_SHORT).show();
         } else {
             android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(getContext());
             builder.setTitle(R.string.permissions);

@@ -21,7 +21,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fitsSystemWindows="true"
-            app:contentScrim="?attr/colorPrimary"
             app:expandedTitleMarginEnd="64dp"
             app:expandedTitleMarginStart="48dp"
             app:expandedTitleTextAppearance="@android:color/transparent"
@@ -59,6 +58,7 @@
         app:layout_anchor="@id/appbar"
         android:layout_margin="10dp"
         android:id="@+id/casts_fab"
+        android:contentDescription="@string/fab_content"
         android:src="@drawable/ic_people_black_24dp"
         app:layout_anchorGravity="bottom|start"/>
     <android.support.design.widget.FloatingActionButton
@@ -67,6 +67,7 @@
         app:layout_anchor="@id/appbar"
         android:layout_margin="10dp"
         android:id="@+id/posters_fab"
+        android:contentDescription="@string/fab_content"
         android:src="@drawable/ic_menu_gallery"
         app:layout_anchorGravity="bottom|center"/>
     <android.support.design.widget.FloatingActionButton
@@ -75,6 +76,7 @@
         app:layout_anchor="@id/appbar"
         android:layout_margin="10dp"
         android:id="@+id/trailer_fab"
+        android:contentDescription="@string/fab_content"
         android:src="@drawable/ic_video_library_black_24dp"
         app:layout_anchorGravity="bottom|end"/>
 

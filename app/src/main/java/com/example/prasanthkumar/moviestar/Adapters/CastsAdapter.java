@@ -38,8 +38,8 @@ public class CastsAdapter extends RecyclerView.Adapter<CastsAdapter.CastsInfo>
     @Override
     public void onBindViewHolder(@NonNull CastsInfo holder, int position)
     {
-        holder.name_crew.setText("Name: "+castList.get(position).getName());
-        holder.character.setText("Character: "+castList.get(position).getCharacter());
+        holder.name_crew.setText( castList.get(position).getName());
+        holder.character.setText(castList.get(position).getCharacter());
         Picasso.with(context)
                 .load(castList.get(position).getProfile_link())
                 .placeholder(R.mipmap.ic_launcher)
@@ -57,7 +57,7 @@ public class CastsAdapter extends RecyclerView.Adapter<CastsAdapter.CastsInfo>
         @BindView(R.id.name_crew) TextView name_crew;
         @BindView(R.id.character_crew) TextView character;
 
-        public CastsInfo(View itemView)
+        CastsInfo(View itemView)
         {
             super(itemView);
             ButterKnife.bind(this,itemView);

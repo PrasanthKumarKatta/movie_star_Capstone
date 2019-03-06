@@ -17,8 +17,8 @@ import com.example.prasanthkumar.moviestar.UIScreens.MainActivity;
 public class MovieStarWidget extends AppWidgetProvider {
     private  static final  String movie_des_key = "movie_des_key";
 
-    static void updateAppWidget(Context context, AppWidgetManager appWidgetManager,
-                                int appWidgetId) {
+    private static void updateAppWidget(Context context, AppWidgetManager appWidgetManager,
+                                        int appWidgetId) {
 
         SharedPreferences sharedPreferences = context.getSharedPreferences("movies_description",Context.MODE_PRIVATE);
         String widgetText = sharedPreferences.getString(movie_des_key,null);

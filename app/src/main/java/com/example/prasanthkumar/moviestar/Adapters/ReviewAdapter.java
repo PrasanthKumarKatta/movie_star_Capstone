@@ -1,5 +1,6 @@
 package com.example.prasanthkumar.moviestar.Adapters;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
@@ -30,18 +31,19 @@ public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.ReviewInfo
 
     @NonNull
     @Override
-    public ReviewAdapter.ReviewInfo onCreateViewHolder(ViewGroup parent, int viewType)
+    public ReviewAdapter.ReviewInfo onCreateViewHolder(@NonNull ViewGroup parent, int viewType)
     {
         View view = LayoutInflater.from(context).inflate(R.layout.review_card,parent,false);
         return new ReviewInfo(view);
     }
 
+    @SuppressLint("SetTextI18n")
     @Override
-    public void onBindViewHolder(ReviewAdapter.ReviewInfo holder, int position)
+    public void onBindViewHolder(@NonNull ReviewAdapter.ReviewInfo holder, int position)
     {
         if (reviewsList == null)
         {
-            Toast.makeText(context, "No Reviews for this Movie", Toast.LENGTH_SHORT).show();
+            Toast.makeText(context, R.string.noReviews, Toast.LENGTH_SHORT).show();
 
         }else {
             holder.review.setText(reviewsList.get(position).getContent());

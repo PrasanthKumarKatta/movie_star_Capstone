@@ -1,13 +1,12 @@
 package com.example.prasanthkumar.moviestar.Model;
 
-import android.database.Cursor;
-import android.util.Log;
+import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.PrimaryKey;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-import java.io.Serializable;
-
+@Entity
 public class Movie  {
 
     @SerializedName("original_title")
@@ -25,6 +24,8 @@ public class Movie  {
     @SerializedName("release_date")
     @Expose
     private String releaseDate;
+
+    @PrimaryKey
     @SerializedName("id")
     @Expose
     private Integer id;

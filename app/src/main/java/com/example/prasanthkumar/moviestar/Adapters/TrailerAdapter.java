@@ -1,8 +1,8 @@
 package com.example.prasanthkumar.moviestar.Adapters;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
-import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -41,7 +41,7 @@ public class TrailerAdapter extends RecyclerView.Adapter<TrailerAdapter.TrailerI
     }
 
     @Override
-    public void onBindViewHolder(@NonNull TrailerInfo holder, final int position)
+    public void onBindViewHolder(@NonNull TrailerInfo holder, @SuppressLint("RecyclerView") final int position)
     {
         holder.trailer_Title.setText(trailerList.get(position).getName());
 
@@ -50,7 +50,7 @@ public class TrailerAdapter extends RecyclerView.Adapter<TrailerAdapter.TrailerI
             public void onInitializationSuccess(YouTubeThumbnailView youTubeThumbnailView, YouTubeThumbnailLoader youTubeThumbnailLoader) {
                // youTubeThumbnailLoader=youTubeThumbnailLoader;
                 youTubeThumbnailLoader.setOnThumbnailLoadedListener(new ThumbnailLoadedListener());
-                youTubeThumbnailLoader.setVideo(trailerList.get(position).getKey());;
+                youTubeThumbnailLoader.setVideo(trailerList.get(position).getKey());
             }
             @Override
             public void onInitializationFailure(YouTubeThumbnailView youTubeThumbnailView, YouTubeInitializationResult youTubeInitializationResult) {

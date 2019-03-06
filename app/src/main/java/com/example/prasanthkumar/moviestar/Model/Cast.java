@@ -1,5 +1,8 @@
 package com.example.prasanthkumar.moviestar.Model;
 
+import android.content.Context;
+
+import com.example.prasanthkumar.moviestar.R;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
@@ -24,7 +27,7 @@ public class Cast {
     }
 
     public String getName() {
-        return name;
+        return  "Name: " + name;
     }
 
     public void setName(String name) {
@@ -40,7 +43,7 @@ public class Cast {
     }
 
     public String getCharacter() {
-        return character;
+        return "Charater: "+character;
     }
 
     public void setCharacter(String character) {

@@ -1,5 +1,6 @@
 package com.example.prasanthkumar.moviestar.Adapters;
 
+import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -34,7 +35,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieInfo>
     private static final String Id = "id";
     private static final String backDropImg_key = "backdropImg";
 
-    ProgressDialog progressDialog;
+    private ProgressDialog progressDialog;
 
     public MovieAdapter(Context context, List<Movie> movieList) {
         this.context = context;
@@ -48,6 +49,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieInfo>
         return new MovieInfo(view);
     }
 
+    @SuppressLint("SetTextI18n")
     @Override
     public void onBindViewHolder(@NonNull MovieInfo holder, int position) {
         progressDialog = new ProgressDialog(context);
@@ -56,10 +58,10 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieInfo>
 
         Picasso.with(context)
                 .load("http://image.tmdb.org/t/p/w500" + movieList.get(position).getPosterPath())
-                .placeholder(R.drawable.loading_gif).into(holder.thumbnail_img);
+                .placeholder(R.mipmap.ic_launcher).into(holder.thumbnail_img);
         progressDialog.dismiss();
         Double rating = Double.parseDouble(String.valueOf(movieList.get(position).getVoteAverage()));
-        holder.movie_rating.setText(String.valueOf(rating)+"/10");
+        holder.movie_rating.setText(String.valueOf(rating)+ R.string.totalRating);
     }
 
     @Override
@@ -73,7 +75,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieInfo>
         @BindView(R.id.thumbnail_img) ImageView thumbnail_img;
         @BindView(R.id.movie_rating) TextView movie_rating;
 
-        public MovieInfo(View itemView)
+        MovieInfo(View itemView)
         {
             super(itemView);
             ButterKnife.bind(this,itemView);

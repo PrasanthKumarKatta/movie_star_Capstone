@@ -24,7 +24,7 @@ public class Login extends AppCompatActivity {
 
     @BindView(R.id.editEmail) TextInputEditText userEmail;
     @BindView(R.id.editText_adminPassword) TextInputEditText password;
-    ProgressDialog pd;
+    private ProgressDialog pd;
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthStateListener;
 

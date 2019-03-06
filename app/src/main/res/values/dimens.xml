@@ -29,4 +29,16 @@ http://developer.android.com/guide/topics/appwidgets/index.html#CreatingLayout
     <dimen name="margin_30dp">30dp</dimen>
     <dimen name="m5dp">5dp</dimen>
     <dimen name="m10dp">10dp</dimen>
+    <dimen name="m8dp">8dp</dimen>
+    <dimen name="m25sp">25sp</dimen>
+    <dimen name="m20sp">20sp</dimen>
+    <dimen name="m4dp">4dp</dimen>
+    <dimen name="m200dp">200dp</dimen>
+    <dimen name="movie_item_wid140dp">140dp</dimen>
+    <dimen name="m131dp">131dp</dimen>
+    <dimen name="m197dp">197dp</dimen>
+    <dimen name="m15sp">15sp</dimen>
+    <dimen name="m15dp">15dp</dimen>
+    <dimen name="m90dp">90dp</dimen>
+    <dimen name="widget_margin1">0dp</dimen>
 </resources>

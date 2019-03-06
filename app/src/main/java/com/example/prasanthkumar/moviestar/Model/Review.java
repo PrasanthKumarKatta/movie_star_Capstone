@@ -1,8 +1,5 @@
 package com.example.prasanthkumar.moviestar.Model;
 
-import com.google.gson.annotations.Expose;
-import com.google.gson.annotations.SerializedName;
-
 public class Review {
 
     /* @SerializedName("author")
@@ -13,18 +10,11 @@ public class Review {
      @Expose
     */
     private String content;
-    private String id;
 
-   /* public Review(String author, String content) {
+    public Review(String author, String content) {
         this.author = author;
         this.content = content;
-    }
-*/
 
-    public Review(String author, String content, String id) {
-        this.author = author;
-        this.content = content;
-        this.id = id;
     }
 
     public String getContent() {

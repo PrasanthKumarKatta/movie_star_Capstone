@@ -27,6 +27,7 @@
                 android:layout_gravity="center"
                 android:hint="@string/enter_user_name"
                 android:textStyle="bold"
+                android:inputType="text"
                 android:textSize="15sp"
                 tools:ignore="RtlSymmetry"
                 android:layout_marginTop="10dp"/>
@@ -59,6 +60,7 @@
                 android:layout_height="wrap_content"
                 >
                 <Button
+                    style="?android:attr/buttonBarButtonStyle"
                     android:id="@+id/button"
                     android:layout_width="0dp"
                     android:layout_weight="1"
@@ -72,6 +74,7 @@
                     android:textStyle="bold" />
 
                 <Button
+                    style="?android:attr/buttonBarButtonStyle"
                     android:id="@+id/reset"
                     android:layout_width="0dp"
                     android:layout_weight="1"

@@ -6,30 +6,26 @@ import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.nfc.Tag;
 import android.util.Log;
-import android.widget.Toast;
 
 import com.example.prasanthkumar.moviestar.Model.Movie;
-import com.example.prasanthkumar.moviestar.UIScreens.Home;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.example.prasanthkumar.moviestar.UIScreens.MainActivity.TAG1;
 
 public class FavoriteDBHelper  extends SQLiteOpenHelper
 {
-    public static final String DATABASE_NAME = "moviestar.db";
-    public static final int DATABASE_Version = 1;
+    private static final String DATABASE_NAME = "moviestar.db";
+    private static final int DATABASE_Version = 1;
     private static final String LOGTAG = "FAVORITE";
 
-    public static final String GET_FAVORITE_QUERY = "SELECT * FROM " + Favorites_Contract.FavoriteEntry.TABLE_NAME;
-    public static final String DROP_QUERY = "DROP TABLE IF EXISTS " + Favorites_Contract.FavoriteEntry.TABLE_NAME;
+    private static final String GET_FAVORITE_QUERY = "SELECT * FROM " + Favorites_Contract.FavoriteEntry.TABLE_NAME;
+    private static final String DROP_QUERY = "DROP TABLE IF EXISTS " + Favorites_Contract.FavoriteEntry.TABLE_NAME;
 
     Context ctx;
-    SQLiteDatabase db;
-    SQLiteOpenHelper dbHandler;
+    private SQLiteDatabase db;
+    private SQLiteOpenHelper dbHandler;
 
     public FavoriteDBHelper(Context context)
     {
@@ -145,11 +141,6 @@ public class FavoriteDBHelper  extends SQLiteOpenHelper
        // int num = db.rawQuery(GET_FAVORITE_QUERY + " where movieid=" + id, null).getCount();
         int num = db.rawQuery("SELECT * FROM "+ Favorites_Contract.FavoriteEntry.TABLE_NAME +" where movieid="+ id, null).getCount();
 
-        if (num == 0)
-        {
-            return  false;
-        } else {
-            return true;
-        }
+        return num != 0;
     }
 }

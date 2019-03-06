@@ -8,23 +8,25 @@ import android.content.UriMatcher;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
+import android.support.annotation.NonNull;
 import android.util.Log;
 
-import java.nio.file.Path;
+import java.util.Objects;
+
 
 public class MovieStarContentProvider extends ContentProvider {
 
-    public static final int TASK = 100;
-    public static final String AUTHORITY = "com.example.prasanthkumar.moviestar";
-    public static final Uri BASE_URI = Uri.parse("content://" + AUTHORITY);
-    public static final String Path = Favorites_Contract.FavoriteEntry.TABLE_NAME;
+    private static final int TASK = 100;
+    private static final String AUTHORITY = "com.example.prasanthkumar.moviestar";
+    private static final Uri BASE_URI = Uri.parse("content://" + AUTHORITY);
+    private static final String Path = Favorites_Contract.FavoriteEntry.TABLE_NAME;
 
     public static final Uri CONTENT_URI = BASE_URI.buildUpon()
                                           .appendEncodedPath(Path)
                                           .build();
-    UriMatcher myUri = matcherUri();
-    SQLiteDatabase db;
-    FavoriteDBHelper favoriteDBHelperDB;
+    private UriMatcher myUri = matcherUri();
+    private SQLiteDatabase db;
+    private FavoriteDBHelper favoriteDBHelperDB;
 
     private UriMatcher matcherUri()
     {
@@ -40,31 +42,29 @@ public class MovieStarContentProvider extends ContentProvider {
     }
 
     @Override
-    public int delete(Uri uri, String selection, String[] selectionArgs) {
+    public int delete(@NonNull Uri uri, String selection, String[] selectionArgs) {
 
         int mt = myUri.match(uri);
         db = favoriteDBHelperDB.getWritableDatabase();
         if (mt ==  TASK){
             long res = db.delete(Favorites_Contract.FavoriteEntry.TABLE_NAME,"movieid="+ Integer.parseInt(selection),null);
 
-        } else {
-
         }
 
-        getContext().getContentResolver().notifyChange(uri,null);
+        Objects.requireNonNull(getContext()).getContentResolver().notifyChange(uri,null);
 
         return mt;
     }
 
     @Override
-    public String getType(Uri uri) {
+    public String getType(@NonNull Uri uri) {
         // TODO: Implement this to handle requests for the MIME type of the data
         // at the given URI.
         throw new UnsupportedOperationException("Not yet implemented");
     }
 
     @Override
-    public Uri insert(Uri uri, ContentValues values) {
+    public Uri insert(@NonNull Uri uri, ContentValues values) {
         Uri returnuri = null;
         int mt = myUri.match(uri);
         db = favoriteDBHelperDB.getWritableDatabase();
@@ -74,10 +74,8 @@ public class MovieStarContentProvider extends ContentProvider {
             Log.d("data",String.valueOf(result));
             returnuri = ContentUris.withAppendedId(CONTENT_URI, result);
 
-        } else {
-
         }
-        getContext().getContentResolver().notifyChange(uri,null);
+        Objects.requireNonNull(getContext()).getContentResolver().notifyChange(uri,null);
 
         return uri;
     }
@@ -91,7 +89,7 @@ public class MovieStarContentProvider extends ContentProvider {
     }
 
     @Override
-    public Cursor query(Uri uri, String[] projection, String selection,
+    public Cursor query(@NonNull Uri uri, String[] projection, String selection,
                         String[] selectionArgs, String sortOrder) {
         // TODO: Implement this to handle query requests from clients.
         //throw new UnsupportedOperationException("Not yet implemented");
@@ -107,7 +105,7 @@ public class MovieStarContentProvider extends ContentProvider {
     }
 
     @Override
-    public int update(Uri uri, ContentValues values, String selection,
+    public int update(@NonNull Uri uri, ContentValues values, String selection,
                       String[] selectionArgs) {
         // TODO: Implement this to handle requests to update one or more rows.
       //  throw new UnsupportedOperationException("Not yet implemented");

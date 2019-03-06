@@ -7,37 +7,37 @@
         <item
             android:id="@+id/home"
             android:icon="@drawable/ic_home_black_24dp"
-            android:title="HOME" />
+            android:title="@string/nav_home" />
         <item
             android:id="@+id/chat_box"
             android:icon="@drawable/ic_chat_black_24dp"
-            android:title="Chat Box" />
+            android:title="@string/nav_chat_box" />
         <item
             android:id="@+id/favorites"
             android:icon="@drawable/ic_favorite_black_24dp"
-            android:title="Favorites" />
+            android:title="@string/nav_favorites" />
         <item
             android:id="@+id/logout"
             android:icon="@drawable/logout"
-            android:title="LogOut" />
+            android:title="@string/nav_logout" />
     </group>
 
-    <item android:title="Communicate">
+    <item android:title="@string/nav_title_communicate">
         <menu>
             <item
                 android:id="@+id/feedback"
                 android:icon="@drawable/ic_feedback_black_24dp"
-                android:title="FeedBack" />
+                android:title="@string/nav_feedback" />
 
             <item
                 android:id="@+id/share"
                 android:icon="@drawable/ic_menu_share"
-                android:title="Share"
+                android:title="@string/nav_share"
                 />
             <item
                 android:id="@+id/developer"
                 android:icon="@drawable/boy"
-                android:title="Developer"
+                android:title="@string/nav_developer"
                 />
         </menu>
     </item>

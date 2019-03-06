@@ -15,7 +15,9 @@ import android.widget.Toast;
 
 import com.example.prasanthkumar.moviestar.Model.Movie;
 import com.example.prasanthkumar.moviestar.R;
+import com.example.prasanthkumar.moviestar.RoomData.MovieEntity;
 import com.example.prasanthkumar.moviestar.UIScreens.DetailsActivity;
+import com.example.prasanthkumar.moviestar.UIScreens.StatefulRecyclerView;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -27,16 +29,16 @@ public class MovieAdapter_favorites extends RecyclerView.Adapter<MovieAdapter_fa
 {
     private Context context;
     private List<Movie> movieList;
-    RecyclerView rv;
-    public static final String Title = "original_title";
-    public static final String Poster_path = "poster";
-    public static final String Release_date = "release";
-    public static final String Vote_average = "vote";
-    public static final String Overview = "overview";
-    public static final String Id = "id";
+    private StatefulRecyclerView rv;
+    private static final String Title = "original_title";
+    private static final String Poster_path = "poster";
+    private static final String Release_date = "release";
+    private static final String Vote_average = "vote";
+    private static final String Overview = "overview";
+    private static final String Id = "id";
     private static final String backDropImg_key = "backdropImg";
 
-    public MovieAdapter_favorites(Context context, List<Movie> movieList, RecyclerView rv)
+    public MovieAdapter_favorites(Context context, List<Movie> movieList, StatefulRecyclerView rv)
     {
         this.context = context;
         this.movieList = movieList;
@@ -55,10 +57,10 @@ public class MovieAdapter_favorites extends RecyclerView.Adapter<MovieAdapter_fa
     public void onBindViewHolder(@NonNull MovieInfo holder, int position) {
 
         Picasso.with(context)
-                .load("http://image.tmdb.org/t/p/w500" + movieList.get(position).getPosterPath())
-                .placeholder(R.drawable.loading_gif).into(holder.thumbnail_img);
+                .load(context.getString(R.string.base_imgUrl) + movieList.get(position).getPosterPath())
+                .placeholder(R.mipmap.ic_launcher).into(holder.thumbnail_img);
         Double rating = Double.parseDouble(String.valueOf(movieList.get(position).getVoteAverage()));
-        holder.movie_rating.setText(String.valueOf(rating)+"/10");
+        holder.movie_rating.setText(String.valueOf(rating)+context.getString(R.string.totalRatingMovie));
     }
 
     @Override
@@ -68,13 +70,13 @@ public class MovieAdapter_favorites extends RecyclerView.Adapter<MovieAdapter_fa
 
             return movieList.size();
         }
-        Toast.makeText(context, "You have No Favorites yet!", Toast.LENGTH_SHORT).show();
-        Snackbar.make( rv , "No Favorite Movies yet!",
+        Toast.makeText(context, R.string.no_favorites, Toast.LENGTH_SHORT).show();
+        Snackbar.make( rv , R.string.snakBar_no_fav,
                 Snackbar.LENGTH_SHORT).show();
         return 0;
     }
 
-    public class MovieInfo extends RecyclerView.ViewHolder {
+    class MovieInfo extends RecyclerView.ViewHolder {
 
         @BindView(R.id.thumbnail_img) ImageView thumbnail_img;
         @BindView(R.id.movie_rating) TextView movie_rating;
@@ -90,7 +92,6 @@ public class MovieAdapter_favorites extends RecyclerView.Adapter<MovieAdapter_fa
                 public void onClick(View v)
                 {
                     int pos = getLayoutPosition();
-                    Toast.makeText(context, "pos:"+pos, Toast.LENGTH_SHORT).show();
                     passDataToDetails(pos);
 
                 }

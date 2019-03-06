@@ -1,15 +1,11 @@
 package com.example.prasanthkumar.moviestar.UIScreens;
 
-import android.app.Dialog;
-import android.app.ProgressDialog;
+import android.app.ActivityOptions;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.os.Handler;
 import android.provider.Settings;
 import android.support.annotation.NonNull;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.app.ShareCompat;
@@ -21,7 +17,6 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -36,6 +31,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.Objects;
+
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -46,25 +43,24 @@ public class MainActivity extends AppCompatActivity
     private TextView userMail;
     private TextView userName;
     private DatabaseReference user_name_ref;
-    private DatabaseReference apk_ref;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         mAuth = FirebaseAuth.getInstance();
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
 
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
         View header = navigationView.getHeaderView(0);
@@ -72,19 +68,18 @@ public class MainActivity extends AppCompatActivity
         userName = header.findViewById(R.id.username_id_nav);
 
         checkInternet();
-
     }
 
     private void checkInternet() {
         if (InternetConnection.isNetworkAvailable(getApplicationContext())) {
             Toast.makeText(this, "Internet Connected", Toast.LENGTH_SHORT).show();
-            userMail.setText(mAuth.getCurrentUser().getEmail());
+            userMail.setText(Objects.requireNonNull(mAuth.getCurrentUser()).getEmail());
             user_name_ref = FirebaseDatabase.getInstance().getReference().child("moviestar_users").child(mAuth.getCurrentUser().getUid()).child("name");
             user_name_ref.addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
-                    String userName_firebase = dataSnapshot.getValue().toString();
+                    String userName_firebase = Objects.requireNonNull(dataSnapshot.getValue()).toString();
                     userName.setText(userName_firebase);
                     userName.setAllCaps(true);
                 }
@@ -122,13 +117,12 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public void onBackPressed() {
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
             super.onBackPressed();
         }
-
         android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(this);
         builder.setTitle("Exit!");
         builder.setMessage("do you want to exit?");
@@ -148,17 +142,16 @@ public class MainActivity extends AppCompatActivity
             }
         });
         builder.show();
-
     }
 
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
-    public boolean onNavigationItemSelected(MenuItem item) {
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
         displaySelectedScreen(id);
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
@@ -173,7 +166,9 @@ public class MainActivity extends AppCompatActivity
                 fragment = new Chat();
                 break;
             case R.id.favorites:
-                startActivity(new Intent(this, FavoritesActivity.class));
+                Intent i = new Intent(this, FavoritesActivity.class);
+                startActivity(i,
+                        ActivityOptions.makeSceneTransitionAnimation(MainActivity.this).toBundle());
                 break;
             case R.id.logout:
                 AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -200,12 +195,12 @@ public class MainActivity extends AppCompatActivity
                 builder.show();
                 break;
             case R.id.share:
-                apk_ref = FirebaseDatabase.getInstance().getReference().child("MovieStar_APK").child("APK");
+                DatabaseReference apk_ref = FirebaseDatabase.getInstance().getReference().child("MovieStar_APK").child("APK");
                 apk_ref.addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
-                        String apk_firebase_db = dataSnapshot.getValue().toString();
+                        String apk_firebase_db = Objects.requireNonNull(dataSnapshot.getValue()).toString();
                         shareAPK(apk_firebase_db);
                     }
 
@@ -220,9 +215,11 @@ public class MainActivity extends AppCompatActivity
                 fragment = new Feedback();
                 break;
             case R.id.developer:
-                Intent i = new Intent(MainActivity.this, DeveloperActivity.class);
-                i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                startActivity(i);
+                Intent i1 = new Intent(MainActivity.this, DeveloperActivity.class);
+                i1.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+
+                startActivity(i1,
+                        ActivityOptions.makeSceneTransitionAnimation(MainActivity.this).toBundle());
                 break;
         }
 
@@ -236,19 +233,17 @@ public class MainActivity extends AppCompatActivity
 
     private void shareAPK(String apk_firebase_db) {
         Intent shareIntent = ShareCompat.IntentBuilder.from(this)
-                .setType("text/plain")
+                .setType(getString(R.string.share_mimetype))
                 .setText("Movie Star \n" + "\n" + apk_firebase_db)
                 .getIntent();
         if (shareIntent.resolveActivity(getPackageManager()) != null) {
             startActivity(shareIntent);
         }
-
     }
 
     @Override
-    protected void onRestart() {
-        super.onRestart();
+    protected void onResume() {
+        super.onResume();
         checkInternet();
     }
-
 }

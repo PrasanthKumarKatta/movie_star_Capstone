@@ -63,7 +63,7 @@
     <string name="we_need_your_registered_email_id_to_sent_your_password">We need your Registered Email ID to sent your Password</string>
 
     <string name="signup"> Sign Up </string>
-    <string name="ok_alert">Ok</string>
+    <string name="ok_alert">OK</string>
     <string name="enter_your_email_id_login">Enter your Email Id</string>
     <string name="author_review_adaptertext">Author:</string>
     <string name="cancel_alert">Cancel</string>
@@ -71,6 +71,48 @@
     <string name="trailer">Trailer</string>
     <string name="noreview_text">No Review Available</string>
     <string name="description_details">Description</string>
+    <string name="releasing_ndate">Releasing  Date :</string>
+    <string name="title">title</string>
+    <string name="title_content">title</string>
+    <string name="tamil_movies">Tamil Movies</string>
+    <string name="nav_home">HOME</string>
+    <string name="nav_chat_box">Chat Box</string>
+    <string name="nav_favorites">Favorites</string>
+    <string name="nav_logout">LogOut</string>
+    <string name="nav_title_communicate">Communicate</string>
+    <string name="nav_feedback">FeedBack</string>
+    <string name="nav_share">Share</string>
+    <string name="nav_developer">Developer</string>
+    <string name="menu_unfavorite_all">UnFavorite All</string>
+    <string name="title_detail">title</string>
+    <string name="review_author">Author</string>
+    <string name="reviews_text">Reviews</string>
+    <string name="totalRating">/10</string>
+
+    <string name="share_mimetype">text/plain</string>
+    <string name="no_favorites">You have No Favorites yet!</string>
+    <string name="snakBar_no_fav">No Favorite Movies yet!</string>
+    <string name="base_imgUrl">http://image.tmdb.org/t/p/w500</string>
+    <string name="totalRatingMovie">/10</string>
+    <string name="noReviews">No Reviews for this Movie</string>
+    <string name="sorryToast">sorry!..</string>
+    <string name="errorCastApiData">Error in Fetching in Casts Data</string>
+    <string name="eoorsFeedBakMsg">FeedBack Stored Sccessfully</string>
+    <string name="errorSomethingMsg">You should be Enter Something Feedback!</string>
+    <string name="internetConnneted">Internet Connected</string>
+    <string name="moviesResfreshed">Movies Refreshed</string>
+    <string name="errorAPIData">Error in Fetching Data!</string>
+    <string name="pwdErrorMsg">Password Length must 6 characters only</string>
+    <string name="failedErrorMsg">Failed to Create user:</string>
+    <string name="reg_suessfull">Registered successfully</string>
+    <string name="pswdErrorMsg">Password Length must be atleast 6 characters</string>
+    <string name="errorTrailerData">Error in Fetching Trailer Data</string>
+    <string name="trailersTitle">Trailers</string>
+    <string name="fab_content">fab_content</string>
+    <string name="posterErrorToast">Error in Fetching in Posters Data</string>
+    <string name="castharName">Charater:</string>
+    <string name="noApiData">No Data from API</string>
+    <string name="needPermissions">Need Permissions</string>
 
 
 </resources>

@@ -5,7 +5,7 @@
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     app:cardCornerRadius="5dp"
-    android:layout_margin="10dp"
+    android:layout_margin="@dimen/m10dp"
     >
     <LinearLayout
         android:layout_width="match_parent"
@@ -16,7 +16,7 @@
             android:id="@+id/review_author"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Author"
+            android:text="@string/review_author"
             android:textStyle="bold"
             android:textSize="20sp"
             android:fontFamily="serif-monospace"
@@ -26,7 +26,7 @@
             android:id="@+id/reviews_id"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Reviews"
+            android:text="@string/reviews_text"
             android:fontFamily="serif"
             android:textSize="15sp"
             />

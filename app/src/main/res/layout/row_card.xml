@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.v7.widget.CardView
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="140dp"
-    android:layout_height="200dp"
+    android:layout_width="@dimen/movie_item_wid140dp"
+    android:layout_height="@dimen/m200dp"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:elevation="4dp"
-    app:cardCornerRadius="5dp"
+    android:elevation="@dimen/m4dp"
+    app:cardCornerRadius="@dimen/m5dp"
     >
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
@@ -16,11 +15,11 @@
 
         <ImageView
             android:id="@+id/thumbnail_img"
-            android:layout_width="131dp"
-            android:layout_height="197dp"
-            android:layout_marginBottom="8dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginStart="8dp"
+            android:layout_width="@dimen/m131dp"
+            android:layout_height="@dimen/m197dp"
+            android:layout_marginBottom="@dimen/m8dp"
+            android:layout_marginEnd="@dimen/m8dp"
+            android:layout_marginStart="@dimen/m8dp"
             android:scaleType="fitXY"
             android:src="@drawable/boy"
             app:layout_constraintBottom_toBottomOf="parent"
